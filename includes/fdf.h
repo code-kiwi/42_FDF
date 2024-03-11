@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/11 13:42:56 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/11 13:55:28 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_vector3
 	float	x;
 	float	y;
 	float	z;
-	int	color;
+	int		color;
 }	t_vector3;
 
 bool	init_data_project(t_fdf_data *data);
