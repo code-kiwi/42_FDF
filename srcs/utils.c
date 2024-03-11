@@ -1,26 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf.c                                              :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/04 09:48:10 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/11 13:42:03 by mhotting         ###   ########.fr       */
+/*   Created: 2024/03/11 09:57:51 by mhotting          #+#    #+#             */
+/*   Updated: 2024/03/11 12:36:01 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	main(int argc, char **argv)
+void	handle_error(t_fdf_data *data, char *error_message)
 {
-	t_fdf_data	data;
-
-	if (argc != 2 || argv == NULL)
-		handle_error(NULL, ERROR_MSG_USAGE);
-	if (!init_data_project(&data))
-		handle_error(NULL, ERROR_MSG_INIT);
-	mlx_loop(data.mlx_ptr);
-	clean_remove(&data);
-	return (0);
+	if (data != NULL)
+		clean_remove(data);
+	ft_dprintf(STDERR_FILENO, "%s\n", error_message);
+	exit(EXIT_FAILURE);
 }

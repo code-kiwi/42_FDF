@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/04 10:28:10 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/11 10:05:54 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,9 @@ MLX_FLAGS				=	-L$(MLX_DIR) -lmlx_Linux -lXext -lX11
 
 # SOURCES GENERAL
 SRCS_MAIN_DIR			=	srcs/
-SRCS_FILES				=	fdf.c
+SRCS_FILES				=	fdf.c				\
+							t_fdf_data_utils.c	\
+							utils.c
 SRCS					=	$(addprefix $(SRCS_MAIN_DIR), $(SRCS_FILES))
 
 # OBJECTS GENERAL
@@ -75,10 +77,10 @@ $(OBJS_MAIN_DIR)%.o: $(SRCS_MAIN_DIR)%.c $(HEADERS) $(LIBFT_HEADERS)
 	$(CC) $(CFLAGS) $(HFLAGS) -MP -MMD -MF $(DEPS_MAIN_DIR)$*.d -c $< -o $@ 
 
 $(LIBFT): FORCE
-	make -C $(LIBFT_DIR)
+	@make -sC $(LIBFT_DIR)
 
 $(MLX): FORCE
-	make -C $(MLX_DIR)
+	@make --no-print-directory -sC $(MLX_DIR) > /dev/null
 
 FORCE:
 
