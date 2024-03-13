@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/11 10:05:54 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/13 11:17:34 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,11 +65,8 @@ DEPS					=	$(addprefix $(DEPS_MAIN_DIR), $(DEPS_FILES))
 # RULES
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(MLX) $(OBJS) $(OBJS_PUSH_SWAP)
+$(NAME): $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) $(HFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $@
-
-$(NAME_BONUS): $(LIBFT) $(OBJS) $(OBJS_CHECKER)
-	$(CC) $(CFLAGS) $(HFLAGS) $(OBJS) $(LIBFT_FLAGS) -o $@
 
 $(OBJS_MAIN_DIR)%.o: $(SRCS_MAIN_DIR)%.c $(HEADERS) $(LIBFT_HEADERS)
 	@mkdir -p $(@D)
@@ -77,10 +74,10 @@ $(OBJS_MAIN_DIR)%.o: $(SRCS_MAIN_DIR)%.c $(HEADERS) $(LIBFT_HEADERS)
 	$(CC) $(CFLAGS) $(HFLAGS) -MP -MMD -MF $(DEPS_MAIN_DIR)$*.d -c $< -o $@ 
 
 $(LIBFT): FORCE
-	@make -sC $(LIBFT_DIR)
+	make -sC $(LIBFT_DIR)
 
 $(MLX): FORCE
-	@make --no-print-directory -sC $(MLX_DIR) > /dev/null
+	make -sC $(MLX_DIR) > /dev/null 2>&1
 
 FORCE:
 
@@ -94,16 +91,16 @@ clean:
 	rm -rf $(DEPS_MAIN_DIR)
 
 clean-libft:
-	make -C $(LIBFT_DIR) clean
+	make -sC $(LIBFT_DIR) clean
 
 clean-mlx:
-	make -C $(MLX_DIR) clean
+	make -sC $(MLX_DIR) clean > /dev/null 2>&1
 
 fclean: clean
 	rm -f $(NAME)
 
 fclean-libft:
-	make -C $(LIBFT_DIR) fclean
+	make -sC $(LIBFT_DIR) fclean
 
 fclean-mlx: clean-mlx
 
@@ -113,4 +110,4 @@ re: fclean all
 
 rre: ffclean re
 
-.PHONY: all clean fclean re clean-libft fclean-libft ffclean rre FORCE fsanitize
+.PHONY: all clean fclean re clean-libft fclean-libft clean-mlx fclean-mlx ffclean rre FORCE fsanitize
