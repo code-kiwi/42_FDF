@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 14:40:55 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/15 15:53:32 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,9 @@
 # include "mlx.h"
 # include <math.h>
 
-# define ERROR_MSG_USAGE "Usage: fdf infile\n"
-# define ERROR_MSG_INIT "Error - Impossible to init mlx data\n"
+# define ERROR_MSG_USAGE "Usage: fdf infile"
+# define ERROR_MSG_INIT "Error - Impossible to init mlx data"
+# define ERROR_MSG_UNKNOWN "Error - Unknown error occured"
 
 # define WIN_TITLE "FDF - Computer Graphics Project"
 # define WIN_WIDTH 1280
@@ -27,6 +28,17 @@
 # define IMG_HEIGHT 720
 
 # define KEY_ESC 65307
+
+enum e_mlx_event
+{
+	MLX_ON_KEYDOWN = 2,
+	MLX_ON_KEYUP = 3,
+	MLX_ON_MOUSEDOWN = 4,
+	MLX_ON_MOUSEUP = 5,
+	MLX_ON_MOUSEMOVE = 6,
+	MLX_ON_EXPOSE = 12,
+	MLX_ON_DESTROY = 17
+};
 
 typedef union u_argb_color
 {
@@ -83,6 +95,9 @@ void	destroy_img(void *mlx_ptr, t_image *img);
 // Draw functions
 void	draw_pixel(t_image *img, t_vector2 *pt);
 void	draw_line(t_image *img, t_vector2 *a, t_vector2 *b);
+
+// Event handling
+void	add_event_handlers(t_fdf_data *data);
 
 // Utils
 void	handle_error(t_fdf_data *data, char *error_message);

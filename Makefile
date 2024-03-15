@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/15 14:34:26 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/15 15:04:43 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS_FILES				=	fdf.c					\
 							t_image_utils.c			\
 							draw_pixel.c			\
 							draw_line.c				\
+							event_handlers.c		\
 							utils.c
 SRCS					=	$(addprefix $(SRCS_MAIN_DIR), $(SRCS_FILES))
 
