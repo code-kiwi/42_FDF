@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:48:10 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 15:05:07 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:53:35 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int	main(int argc, char **argv)
 		handle_error(NULL, ERROR_MSG_USAGE);
 	if (!init_data_project(&data))
 		handle_error(NULL, ERROR_MSG_INIT);
+	data.map = parse_input_file(argv[1]);
+	if (data.map == NULL)
+		handle_error(&data, ERROR_MSG_INFILE);
 	add_event_handlers(&data);
 
 	// Testing pixel put

@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 15:53:32 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/15 17:22:59 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,13 @@
 
 # include "libft.h"
 # include "mlx.h"
+# include <fcntl.h>
 # include <math.h>
 
 # define ERROR_MSG_USAGE "Usage: fdf infile"
 # define ERROR_MSG_INIT "Error - Impossible to init mlx data"
 # define ERROR_MSG_UNKNOWN "Error - Unknown error occured"
+# define ERROR_MSG_INFILE "Error - Input file is invalid"
 
 # define WIN_TITLE "FDF - Computer Graphics Project"
 # define WIN_WIDTH 1280
@@ -79,6 +81,19 @@ typedef struct s_vector2
 	int				y;
 	t_argb_color	color;
 }	t_vector2;
+
+typedef struct s_parser_info
+{
+	t_list	*points;
+	size_t	nb_lines;
+	size_t	nb_line_elts;
+}	t_parser_info;
+
+typedef struct s_parser_info_content
+{
+	int	z_value;
+	int	color_value;
+}	t_parser_info_content;
 
 // t_fdf_data functions
 bool	init_data_project(t_fdf_data *data);
