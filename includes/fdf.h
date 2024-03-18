@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 17:22:59 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/18 14:43:58 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@
 # include <fcntl.h>
 # include <math.h>
 
+
+#include <stdio.h>
+
 # define ERROR_MSG_USAGE "Usage: fdf infile"
 # define ERROR_MSG_INIT "Error - Impossible to init mlx data"
 # define ERROR_MSG_UNKNOWN "Error - Unknown error occured"
-# define ERROR_MSG_INFILE "Error - Input file is invalid"
+# define ERROR_MSG_INFILE "Error - Input file is invalid or cannot be parsed"
 
 # define WIN_TITLE "FDF - Computer Graphics Project"
 # define WIN_WIDTH 1280
@@ -30,6 +33,10 @@
 # define IMG_HEIGHT 720
 
 # define KEY_ESC 65307
+
+# define COLOR_SEPARATOR ','
+# define COLOR_DEFAULT 0xFFFFFF
+# define UPPER_HEX_BASE "0123456789ABCDEF"
 
 enum e_mlx_event
 {
@@ -87,6 +94,8 @@ typedef struct s_parser_info
 	t_list	*points;
 	size_t	nb_lines;
 	size_t	nb_line_elts;
+	bool	first_line_parsed;
+	bool	error;
 }	t_parser_info;
 
 typedef struct s_parser_info_content
@@ -94,6 +103,15 @@ typedef struct s_parser_info_content
 	int	z_value;
 	int	color_value;
 }	t_parser_info_content;
+
+// Parsing functions
+t_vector3				**parse_input_file(char *filename);
+void					parser_info_init(t_parser_info *info);
+void					parser_info_clear(t_parser_info *info);
+void					parser_info_add(t_parser_info *info, int z, int color);
+t_parser_info_content	*new_parser_info_content(int z, int color);
+void					parse_line(t_parser_info *info, char *line);
+void					parse_first_line(t_parser_info *info, char *line);
 
 // t_fdf_data functions
 bool	init_data_project(t_fdf_data *data);

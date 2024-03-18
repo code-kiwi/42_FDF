@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/15 15:04:43 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/18 14:44:39 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,9 @@ MLX_FLAGS				=	-L$(MLX_DIR) -lmlx_Linux -lXext -lX11
 # SOURCES GENERAL
 SRCS_MAIN_DIR			=	srcs/
 SRCS_FILES				=	fdf.c					\
+							parser.c				\
+							parser_line.c			\
+							parser_info_utils.c		\
 							t_fdf_data_utils.c		\
 							t_argb_color_utils.c	\
 							t_image_utils.c			\
