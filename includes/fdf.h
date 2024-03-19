@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/18 14:43:58 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/19 17:50:38 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,27 +91,13 @@ typedef struct s_vector2
 
 typedef struct s_parser_info
 {
-	t_list	*points;
-	size_t	nb_lines;
-	size_t	nb_line_elts;
-	bool	first_line_parsed;
-	bool	error;
+	size_t		nb_lines;
+	size_t		nb_line_elts;
+	t_vector3	**map;
 }	t_parser_info;
 
-typedef struct s_parser_info_content
-{
-	int	z_value;
-	int	color_value;
-}	t_parser_info_content;
-
 // Parsing functions
-t_vector3				**parse_input_file(char *filename);
-void					parser_info_init(t_parser_info *info);
-void					parser_info_clear(t_parser_info *info);
-void					parser_info_add(t_parser_info *info, int z, int color);
-t_parser_info_content	*new_parser_info_content(int z, int color);
-void					parse_line(t_parser_info *info, char *line);
-void					parse_first_line(t_parser_info *info, char *line);
+t_vector3	**parse_input_file(char *filename);
 
 // t_fdf_data functions
 bool	init_data_project(t_fdf_data *data);

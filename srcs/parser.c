@@ -3,45 +3,77 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mhotting <mhotting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 16:12:12 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/18 16:07:30 by mhotting         ###   ########.fr       */
+/*   Created: 2024/03/19 16:27:52 by mhotting          #+#    #+#             */
+/*   Updated: 2024/03/19 17:51:07 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-bool	get_file_info(t_parser_info *info, int fd)
+size_t	parser_count_line_elts(char *line)
+{
+	size_t	count;
+
+	if (line == NULL)
+		return (0) ;
+	count = 0;
+	while (*line != '\0' && *line != '\n')
+	{
+		while (ft_isspace(*line))
+			line++;
+		if (*line == '\0' || *line == '\n')
+			break ;
+		count++;
+		while (*line != '\0' && !ft_isspace(*line))
+			line++;
+	}
+	return (count);
+}
+
+bool	parser_count_lines(t_parser_info *info, int fd)
 {
 	char	*line;
+	bool	first_line_read;
 
-	if (fd == -1 || info == NULL)
+	if (info == NULL || fd < 0)
 		return (false);
-	while (!info->error)
+	first_line_read = false;
+	while (true)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
+		{
+			get_next_line(-1);
 			break ;
-		info->nb_lines++;
-		if (!info->first_line_parsed)
-			parse_first_line(info, line);
-		parse_line(info, line);
+		}
+		if (!first_line_read)
+		{
+			first_line_read = true;
+			info->nb_line_elts = parser_count_line_elts(line);
+		}
 		free(line);
+		info->nb_lines += 1;
 	}
-	if (
-		info->error
-		|| ft_lstsize(info->points) != info->nb_lines * info->nb_line_elts
-	)
+	if (info->nb_lines == 0 || info->nb_line_elts == 0)
 		return (false);
 	return (true);
 }
 
+void	parser_info_init(t_parser_info *info)
+{
+	if (info == NULL)
+		return ;
+	info->nb_lines = 0;
+	info->nb_line_elts = 0;
+	info->map = NULL;
+}
+
 t_vector3	**parse_input_file(char *filename)
 {
-	t_vector3		**map;
-	t_parser_info	info;
 	int				fd;
+	t_parser_info	info;
 
 	if (filename == NULL)
 		return (NULL);
@@ -49,24 +81,10 @@ t_vector3	**parse_input_file(char *filename)
 	if (fd == -1)
 		return (NULL);
 	parser_info_init(&info);
-	if (!get_file_info(&info, fd))
-	{
-		printf("MAP ERROR\n");
-		parser_info_clear(&info);
+	parser_count_lines(&info, fd);
+	if (close(fd) == -1)
 		return (NULL);
-	}
-	t_list	*lst;
-	lst = info.points;
-	size_t	i = 0;
-	t_parser_info_content *content;
-	while (lst!= NULL)
-	{
-		content = (t_parser_info_content *)lst->content;
-		printf("POINT: %zu / %d - %d\n", i++, content->z_value, content->color_value);
-		lst = lst->next;
-	}
-	map = NULL;
-	//map = parser_info_to_map(&parser_info);
-	parser_info_clear(&info);
-	return (map);
+	printf("NB_LINES: %zu\n", info.nb_lines);
+	printf("NB_ELT_LINE: %zu\n", info.nb_line_elts);
+	return (info.map);
 }
