@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/19 17:50:38 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:10:22 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
-
-
-#include <stdio.h>
 
 # define ERROR_MSG_USAGE "Usage: fdf infile"
 # define ERROR_MSG_INIT "Error - Impossible to init mlx data"
@@ -37,6 +34,9 @@
 # define COLOR_SEPARATOR ','
 # define COLOR_DEFAULT 0xFFFFFF
 # define UPPER_HEX_BASE "0123456789ABCDEF"
+
+# define FDF_FILE_EXTENSION ".fdf"
+# define FDF_FILE_EXTENSION_LEN 4
 
 enum e_mlx_event
 {
@@ -71,7 +71,7 @@ typedef struct s_fdf_data
 	t_image				*img1;
 	struct s_vector3	**map;
 	size_t				nb_lines;
-	size_t				line_size;
+	size_t				nb_line_elts;
 }	t_fdf_data;
 
 typedef struct s_vector3
@@ -89,36 +89,27 @@ typedef struct s_vector2
 	t_argb_color	color;
 }	t_vector2;
 
-typedef struct s_parser_info
-{
-	size_t		nb_lines;
-	size_t		nb_line_elts;
-	t_vector3	**map;
-}	t_parser_info;
-
-// Parsing functions
-t_vector3	**parse_input_file(char *filename);
-
 // t_fdf_data functions
-bool	init_data_project(t_fdf_data *data);
-void	clean_remove(t_fdf_data *data);
+void		init_data_project(t_fdf_data *data);
+bool		open_project_window(t_fdf_data *data);
+void		clean_remove(t_fdf_data *data);
 
 // t_color functions
-int		get_color_value(t_argb_color *col_a, \
-				t_argb_color *col_b, int num, int denom);
+int			get_color_value(t_argb_color *col_a, \
+					t_argb_color *col_b, int num, int denom);
 
 // t_image functions
-t_image	*init_img(void *mlx_ptr);
-void	destroy_img(void *mlx_ptr, t_image *img);
+t_image		*init_img(void *mlx_ptr);
+void		destroy_img(void *mlx_ptr, t_image *img);
 
 // Draw functions
-void	draw_pixel(t_image *img, t_vector2 *pt);
-void	draw_line(t_image *img, t_vector2 *a, t_vector2 *b);
+void		draw_pixel(t_image *img, t_vector2 *pt);
+void		draw_line(t_image *img, t_vector2 *a, t_vector2 *b);
 
 // Event handling
-void	add_event_handlers(t_fdf_data *data);
+void		add_event_handlers(t_fdf_data *data);
 
 // Utils
-void	handle_error(t_fdf_data *data, char *error_message);
+void		handle_error(t_fdf_data *data, char *error_message);
 
 #endif

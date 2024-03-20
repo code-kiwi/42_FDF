@@ -6,13 +6,13 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 14:26:42 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/20 13:47:49 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-bool	init_data_project(t_fdf_data *data)
+bool	open_project_window(t_fdf_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
@@ -24,7 +24,6 @@ bool	init_data_project(t_fdf_data *data)
 		mlx_destroy_display(data->mlx_ptr);
 		return (false);
 	}
-	data->img1 = NULL;
 	data->img1 = init_img(data->mlx_ptr);
 	if (data->img1 == NULL)
 	{
@@ -32,29 +31,39 @@ bool	init_data_project(t_fdf_data *data)
 		mlx_destroy_display(data->mlx_ptr);
 		return (false);
 	}
+	return (true);
+}
+
+void	init_data_project(t_fdf_data *data)
+{
+	data->mlx_ptr = NULL;
+	data->mlx_win = NULL;
+	data->img1 = NULL;
 	data->map = NULL;
 	data->nb_lines = 0;
-	data->line_size = 0;
-	return (true);
+	data->nb_line_elts = 0;
 }
 
 void	clean_remove(t_fdf_data *data)
 {
-	size_t	i;
+	size_t		i;
+	t_vector3	**map;
 
-	if (data == NULL || data->mlx_ptr == NULL)
+	if (data == NULL)
 		return ;
-	if (data->mlx_win != NULL)
+	if (data->mlx_ptr != NULL && data->mlx_win != NULL)
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-	if (data->map != NULL)
+	map = data->map;
+	if (map != NULL)
 	{
 		i = 0;
 		while (i < data->nb_lines)
-			free((data->map)[i++]);
-		free(data->map);
+			free(map[i++]);
+		free(map);
 	}
-	if (data->img1 != NULL)
+	if (data->mlx_ptr != NULL && data->img1 != NULL)
 		destroy_img(data->mlx_ptr, data->img1);
-	mlx_destroy_display(data->mlx_ptr);
+	if (data->mlx_ptr != NULL)
+		mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 }

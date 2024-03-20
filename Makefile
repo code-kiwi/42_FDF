@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/19 16:27:00 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/20 14:11:10 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ FSFLAGS					=	-fsanitize=address
 
 # HEADERS
 HEADERS_DIR				=	includes/
-HEADERS_FILES			=	fdf.h
+HEADERS_FILES			=	fdf.h fdf_parsing.h
 HEADERS					=	$(addprefix $(HEADERS_DIR), $(HEADERS_FILES))
 
 # LIBFT
@@ -47,6 +47,8 @@ MLX_FLAGS				=	-L$(MLX_DIR) -lmlx_Linux -lXext -lX11
 SRCS_MAIN_DIR			=	srcs/
 SRCS_FILES				=	fdf.c					\
 							parser.c				\
+							parser_parse_line.c		\
+							t_parser_info_utils.c	\
 							t_fdf_data_utils.c		\
 							t_argb_color_utils.c	\
 							t_image_utils.c			\
@@ -88,7 +90,7 @@ $(MLX): FORCE
 FORCE:
 
 fsanitize: fclean $(LIBFT) $(OBJS)
-	$(CC) $(CFLAGS) $(HFLAGS) $(FSFLAGS) $(OBJS) $(LIBFT_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(HFLAGS) $(FSFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(NAME)
 
 -include $(DEPS)
 
