@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/20 13:47:49 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:27:07 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_data_project(t_fdf_data *data)
 	data->map = NULL;
 	data->nb_lines = 0;
 	data->nb_line_elts = 0;
+	camera_init(&data->camera);
 }
 
 void	clean_remove(t_fdf_data *data)

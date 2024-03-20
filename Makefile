@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/20 14:11:10 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/20 16:40:22 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -52,6 +52,7 @@ SRCS_FILES				=	fdf.c					\
 							t_fdf_data_utils.c		\
 							t_argb_color_utils.c	\
 							t_image_utils.c			\
+							t_camera_utils.c		\
 							draw_pixel.c			\
 							draw_line.c				\
 							event_handlers.c		\

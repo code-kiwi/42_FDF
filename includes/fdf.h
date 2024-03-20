@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/20 14:10:22 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:27:36 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@
 # define FDF_FILE_EXTENSION ".fdf"
 # define FDF_FILE_EXTENSION_LEN 4
 
+# define CAMERA_INITIAL_POSITION_X 0.0f
+# define CAMERA_INITIAL_POSITION_Y 0.0f
+# define CAMERA_INITIAL_POSITION_Z 0.0f
+# define CAMERA_INITIAL_DIRECTION_X 0.0f
+# define CAMERA_INITIAL_DIRECTION_Y 0.0f
+# define CAMERA_INITIAL_DIRECTION_Z 0.0f
+# define CAMERA_INITIAL_FOV 0.7854f
+
 enum e_mlx_event
 {
 	MLX_ON_KEYDOWN = 2,
@@ -64,16 +72,6 @@ typedef struct s_image
 	int		endian;
 }	t_image;
 
-typedef struct s_fdf_data
-{
-	void				*mlx_ptr;
-	void				*mlx_win;
-	t_image				*img1;
-	struct s_vector3	**map;
-	size_t				nb_lines;
-	size_t				nb_line_elts;
-}	t_fdf_data;
-
 typedef struct s_vector3
 {
 	float			x;
@@ -89,6 +87,24 @@ typedef struct s_vector2
 	t_argb_color	color;
 }	t_vector2;
 
+typedef struct s_camera
+{
+	t_vector3	position;
+	t_vector3	direction;
+	float		fov;
+}	t_camera;
+
+typedef struct s_fdf_data
+{
+	void				*mlx_ptr;
+	void				*mlx_win;
+	t_image				*img1;
+	struct s_vector3	**map;
+	size_t				nb_lines;
+	size_t				nb_line_elts;
+	t_camera			camera;
+}	t_fdf_data;
+
 // t_fdf_data functions
 void		init_data_project(t_fdf_data *data);
 bool		open_project_window(t_fdf_data *data);
@@ -101,6 +117,9 @@ int			get_color_value(t_argb_color *col_a, \
 // t_image functions
 t_image		*init_img(void *mlx_ptr);
 void		destroy_img(void *mlx_ptr, t_image *img);
+
+// t_camera functions
+void		camera_init(t_camera *camera);
 
 // Draw functions
 void		draw_pixel(t_image *img, t_vector2 *pt);
