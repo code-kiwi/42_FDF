@@ -1,23 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_line.c                                      :+:      :+:    :+:   */
+/*   parser_parse_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/18 14:42:12 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/18 16:07:24 by mhotting         ###   ########.fr       */
+/*   Created: 2024/03/20 11:45:35 by mhotting          #+#    #+#             */
+/*   Updated: 2024/03/20 14:16:58 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fdf.h"
+#include "fdf_parsing.h"
 
-size_t	parser_count_line_elts(char *line)
+static size_t	parser_count_line_elts(char *line)
 {
 	size_t	count;
 
 	if (line == NULL)
-		return (0) ;
+		return (0);
 	count = 0;
 	while (*line != '\0' && *line != '\n')
 	{
@@ -32,16 +32,29 @@ size_t	parser_count_line_elts(char *line)
 	return (count);
 }
 
-void	parse_first_line(t_parser_info *info, char *line)
+void	parser_get_counts(t_parser_info *info, int fd)
 {
-	size_t	count;
+	char	*line;
+	size_t	nb_line_elts;
 
-	if (info == NULL || line == NULL)
-		return ;
-	count = parser_count_line_elts(line);
-	if (count == 0)
+	if (info == NULL || fd < 0)
 		info->error = true;
-	info->nb_line_elts = count;
+	while (!info->error)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		nb_line_elts = parser_count_line_elts(line);
+		if (info->nb_line_elts == 0)
+			info->nb_line_elts = nb_line_elts;
+		if (nb_line_elts == 0 || info->nb_line_elts != nb_line_elts)
+			info->error = true;
+		free(line);
+		info->nb_lines += 1;
+	}
+	if (info->nb_lines == 0 || info->nb_line_elts == 0)
+		info->error = true;
+	get_next_line(-1);
 }
 
 static int	parse_line_z(t_parser_info *info, char **line)
@@ -80,11 +93,13 @@ static int	parse_color(char *str)
 	return (color);
 }
 
-void	parse_line(t_parser_info *info, char *line)
+void	parse_line(t_parser_info *info, char *line, size_t line_index)
 {
-	int	z_read;
-	int	color_read;
-	
+	int		z_read;
+	int		color_read;
+	size_t	col_index;
+
+	col_index = 0;
 	while (*line != '\0' && *line != '\n' && !info->error)
 	{
 		while (ft_isspace(*line))
@@ -98,12 +113,11 @@ void	parse_line(t_parser_info *info, char *line)
 		if (*line == COLOR_SEPARATOR)
 			color_read = parse_color(++line);
 		else if (*line != '\0' && !ft_isspace(*line))
-		{
 			info->error = true;
-			break ;
-		}
-		parser_info_add(info, z_read, color_read);
+		parser_info_add_coords(info, line_index, col_index, z_read);
+		parser_info_add_color(info, line_index, col_index, color_read);
 		while (*line != '\0' && !ft_isspace(*line))
 			line++;
+		col_index++;
 	}
 }

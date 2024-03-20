@@ -6,11 +6,12 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:48:10 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/18 10:51:58 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/20 14:12:46 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "fdf_parsing.h"
 
 int	main(int argc, char **argv)
 {
@@ -18,12 +19,11 @@ int	main(int argc, char **argv)
 
 	if (argc != 2 || argv == NULL)
 		handle_error(NULL, ERROR_MSG_USAGE);
-	//if (!init_data_project(&data))
-		//handle_error(NULL, ERROR_MSG_INIT);
-	data.map = parse_input_file(argv[1]);
-	return (0);
-	if (data.map == NULL)
+	init_data_project(&data);
+	if (!parse_input_file(&data, argv[1]) || data.map == NULL)
 		handle_error(&data, ERROR_MSG_INFILE);
+	if (!open_project_window(&data))
+		handle_error(&data, ERROR_MSG_INIT);
 	add_event_handlers(&data);
 
 	// Testing pixel put
