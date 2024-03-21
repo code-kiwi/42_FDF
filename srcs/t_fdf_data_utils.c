@@ -6,11 +6,28 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 11:30:08 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:34:24 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+static bool	init_project_images(t_fdf_data *data)
+{
+	if (data == NULL || data->mlx_ptr == NULL)
+		return (false);
+	data->img1 = img_init(data->mlx_ptr);
+	if (data->img1 == NULL)
+		return (false);
+	data->img2 = img_init(data->mlx_ptr);
+	if (data->img2 == NULL)
+	{
+		img_destroy(data->mlx_ptr, data->img1);
+		data->img1 = NULL;
+		return (false);
+	}
+	return (true);
+}
 
 bool	open_project_window(t_fdf_data *data)
 {
@@ -24,8 +41,7 @@ bool	open_project_window(t_fdf_data *data)
 		mlx_destroy_display(data->mlx_ptr);
 		return (false);
 	}
-	data->img1 = init_img(data->mlx_ptr);
-	if (data->img1 == NULL)
+	if (!init_project_images(data))
 	{
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 		mlx_destroy_display(data->mlx_ptr);
@@ -39,10 +55,13 @@ void	init_data_project(t_fdf_data *data)
 	data->mlx_ptr = NULL;
 	data->mlx_win = NULL;
 	data->img1 = NULL;
+	data->img2 = NULL;
+	data->img_active = NULL;
 	data->map = NULL;
 	data->projection = NULL;
 	data->nb_lines = 0;
 	data->nb_line_elts = 0;
+	data->event_loop_counter = 0;
 	camera_init(&data->camera);
 }
 
@@ -79,7 +98,9 @@ void	clean_remove(t_fdf_data *data)
 	projection = data->projection;
 	clean_map_proj(map, projection, data->nb_lines);
 	if (data->mlx_ptr != NULL && data->img1 != NULL)
-		destroy_img(data->mlx_ptr, data->img1);
+		img_destroy(data->mlx_ptr, data->img1);
+	if (data->mlx_ptr != NULL && data->img2 != NULL)
+		img_destroy(data->mlx_ptr, data->img2);
 	if (data->mlx_ptr != NULL)
 		mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);

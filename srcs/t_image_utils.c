@@ -6,13 +6,37 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:17:53 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 14:35:57 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:53:42 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_image	*init_img(void *mlx_ptr)
+void	img_clear(t_image *img)
+{
+	int			x;
+	int			y;
+	t_point2d	point;
+
+	if (img == NULL)
+		return ;
+	point.color.value = 0;
+	x = -IMG_WIDTH / 2;
+	while (x <= IMG_WIDTH / 2)
+	{
+		y = -IMG_HEIGHT / 2;
+		while (y <= IMG_HEIGHT / 2)
+		{
+			point.coords.x = x;
+			point.coords.y = y;
+			draw_pixel(img, &point);
+			y++;
+		}
+		x++;
+	}
+}
+
+t_image	*img_init(void *mlx_ptr)
 {
 	t_image	*img;
 
@@ -38,7 +62,7 @@ t_image	*init_img(void *mlx_ptr)
 	return (img);
 }
 
-void	destroy_img(void *mlx_ptr, t_image *img)
+void	img_destroy(void *mlx_ptr, t_image *img)
 {
 	if (mlx_ptr == NULL || img == NULL || img->ptr == NULL)
 		return ;

@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:45:35 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/20 14:16:58 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:11:56 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,6 @@ static int	parse_color(char *str)
 	i = 0;
 	while (i < 6 && ft_strchr(UPPER_HEX_BASE, str[i]) != NULL)
 		i++;
-	if (i != 6)
-		return (COLOR_DEFAULT);
 	color = ft_atoi_base(str, UPPER_HEX_BASE);
 	return (color);
 }

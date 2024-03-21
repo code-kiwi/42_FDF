@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 12:10:39 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 16:08:41 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@
 # define WIN_HEIGHT 720
 # define IMG_WIDTH 1280
 # define IMG_HEIGHT 720
+# define IMG_INITIAL_POSITION_X 0
+# define IMG_INITIAL_POSITION_Y 0
+
+# define EVENT_LOOP_FRAME_TARGET 1000
 
 # define KEY_ESC 65307
 
@@ -109,11 +113,14 @@ typedef struct s_fdf_data
 	void				*mlx_ptr;
 	void				*mlx_win;
 	t_image				*img1;
+	t_image				*img2;
+	t_image				*img_active;
 	t_point3d			**map;
 	t_point2d			**projection;
 	size_t				nb_lines;
 	size_t				nb_line_elts;
 	t_camera			camera;
+	size_t				event_loop_counter;
 }	t_fdf_data;
 
 // t_fdf_data functions
@@ -126,8 +133,9 @@ int			get_color_value(t_argb_color *col_a, \
 					t_argb_color *col_b, int num, int denom);
 
 // t_image functions
-t_image		*init_img(void *mlx_ptr);
-void		destroy_img(void *mlx_ptr, t_image *img);
+t_image		*img_init(void *mlx_ptr);
+void		img_destroy(void *mlx_ptr, t_image *img);
+void		img_clear(t_image *img);
 
 // t_camera functions
 void		camera_init(t_camera *camera);
@@ -139,6 +147,9 @@ void		draw_line(t_image *img, t_point2d *a, t_point2d *b);
 // Projection functions
 bool		projection_init(t_fdf_data *data);
 void		projection_calculate(t_fdf_data *data);
+
+// Render function
+int			render(void *data_received);
 
 // Event handling
 void		add_event_handlers(t_fdf_data *data);

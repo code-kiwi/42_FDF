@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:09:38 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 12:26:25 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 15:54:40 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	projection_calculate(t_fdf_data *data)
 		j = 0;
 		while (j < data->nb_line_elts)
 		{
-			proj[i][j].coords.x = map[i][j].coords.x;
-			proj[i][j].coords.y = map[i][j].coords.y;
+			proj[i][j].coords.x = map[i][j].coords.x * 5;
+			proj[i][j].coords.y = map[i][j].coords.y * 5;
 			j++;
 		}
 		i++;

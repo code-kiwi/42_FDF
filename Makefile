@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/21 12:13:43 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/21 16:15:06 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS_FILES				=	fdf.c					\
 							event_handlers.c		\
 							projection_init.c		\
 							projection.c			\
+							render.c				\
 							utils.c
 SRCS					=	$(addprefix $(SRCS_MAIN_DIR), $(SRCS_FILES))
 
@@ -92,7 +93,7 @@ $(MLX): FORCE
 
 FORCE:
 
-fsanitize: fclean $(LIBFT) $(OBJS)
+fsanitize: fclean $(LIBFT) $(MLX) $(OBJS)
 	$(CC) $(CFLAGS) $(HFLAGS) $(FSFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(NAME)
 
 -include $(DEPS)
