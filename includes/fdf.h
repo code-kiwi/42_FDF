@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/20 16:27:36 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:15:48 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,15 +77,25 @@ typedef struct s_vector3
 	float			x;
 	float			y;
 	float			z;
-	t_argb_color	color;
 }	t_vector3;
 
 typedef struct s_vector2
 {
 	int				x;
 	int				y;
-	t_argb_color	color;
 }	t_vector2;
+
+typedef struct s_point_3d
+{
+	t_vector3		coords;
+	t_argb_color	color;
+}	t_point3d;
+
+typedef struct s_point_2d
+{
+	t_vector2		coords;
+	t_argb_color	color;
+}	t_point2d;
 
 typedef struct s_camera
 {
@@ -99,7 +109,7 @@ typedef struct s_fdf_data
 	void				*mlx_ptr;
 	void				*mlx_win;
 	t_image				*img1;
-	struct s_vector3	**map;
+	t_point3d			**map;
 	size_t				nb_lines;
 	size_t				nb_line_elts;
 	t_camera			camera;
@@ -122,8 +132,8 @@ void		destroy_img(void *mlx_ptr, t_image *img);
 void		camera_init(t_camera *camera);
 
 // Draw functions
-void		draw_pixel(t_image *img, t_vector2 *pt);
-void		draw_line(t_image *img, t_vector2 *a, t_vector2 *b);
+void		draw_pixel(t_image *img, t_point2d *pt);
+void		draw_line(t_image *img, t_point2d *a, t_point2d *b);
 
 // Event handling
 void		add_event_handlers(t_fdf_data *data);

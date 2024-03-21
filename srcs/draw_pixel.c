@@ -6,13 +6,13 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:12:04 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 14:40:47 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:00:08 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	draw_pixel(t_image *img, t_vector2 *pt)
+void	draw_pixel(t_image *img, t_point2d *pt)
 {
 	char	*dest;
 	int		bpp;
@@ -23,12 +23,12 @@ void	draw_pixel(t_image *img, t_vector2 *pt)
 	if (
 		img == NULL || img->ptr == NULL
 		|| img->addr == NULL || pt == NULL
-		|| pt->x <= -IMG_WIDTH / 2 || pt->x >= IMG_WIDTH / 2
-		|| pt->y <= -IMG_HEIGHT / 2 || pt->y >= IMG_HEIGHT / 2
+		|| pt->coords.x <= -IMG_WIDTH / 2 || pt->coords.x >= IMG_WIDTH / 2
+		|| pt->coords.y <= -IMG_HEIGHT / 2 || pt->coords.y >= IMG_HEIGHT / 2
 	)
 		return ;
-	img_x = pt->x + IMG_WIDTH / 2;
-	img_y = -pt->y + IMG_HEIGHT / 2;
+	img_x = pt->coords.x + IMG_WIDTH / 2;
+	img_y = -pt->coords.y + IMG_HEIGHT / 2;
 	bpp = img->bpp;
 	line_len = img->line_len;
 	dest = img->addr + (img_y * line_len + img_x * bpp / 8);

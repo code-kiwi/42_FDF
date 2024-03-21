@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/20 16:27:07 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:10:40 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	init_data_project(t_fdf_data *data)
 void	clean_remove(t_fdf_data *data)
 {
 	size_t		i;
-	t_vector3	**map;
+	t_point3d	**map;
 
 	if (data == NULL)
 		return ;

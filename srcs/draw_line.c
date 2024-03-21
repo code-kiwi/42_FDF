@@ -6,18 +6,18 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:55:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 14:41:09 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:03:32 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	draw_line_low_init(t_vector2 *a, t_vector2 *b, int dxy[2], int *yi)
+static void	draw_line_low_init(t_point2d *a, t_point2d *b, int dxy[2], int *yi)
 {
 	if (a == NULL || b == NULL || dxy == NULL || yi == NULL)
 		return ;
-	dxy[0] = b->x - a->x;
-	dxy[1] = b->y - a->y;
+	dxy[0] = b->coords.x - a->coords.x;
+	dxy[1] = b->coords.y - a->coords.y;
 	*yi = 1;
 	if (dxy[1] < 0)
 	{
@@ -26,40 +26,40 @@ static void	draw_line_low_init(t_vector2 *a, t_vector2 *b, int dxy[2], int *yi)
 	}
 }
 
-static void	draw_line_low(t_image *img, t_vector2 *a, t_vector2 *b)
+static void	draw_line_low(t_image *img, t_point2d *a, t_point2d *b)
 {
-	t_vector2	pt;
+	t_point2d	pt;
 	int			dxy[2];
 	int			yi;
 	int			d;
 
 	draw_line_low_init(a, b, dxy, &yi);
-	pt.x = a->x;
-	pt.y = a->y;
+	pt.coords.x = a->coords.x;
+	pt.coords.y = a->coords.y;
 	pt.color.value = a->color.value;
 	d = 2 * dxy[1] - dxy[0];
-	while (pt.x <= b->x)
+	while (pt.coords.x <= b->coords.x)
 	{
 		pt.color.value = get_color_value(\
-				&(a->color), &(b->color), (pt.x - a->x), dxy[0]);
+				&(a->color), &(b->color), (pt.coords.x - a->coords.x), dxy[0]);
 		draw_pixel(img, &pt);
 		if (d > 0)
 		{
-			pt.y = pt.y + yi;
+			pt.coords.y = pt.coords.y + yi;
 			d = d + (2 * (dxy[1] - dxy[0]));
 		}
 		else
 			d = d + 2 * dxy[1];
-		pt.x += 1;
+		pt.coords.x += 1;
 	}
 }
 
-static void	draw_line_high_init(t_vector2 *a, t_vector2 *b, int dxy[2], int *xi)
+static void	draw_line_high_init(t_point2d *a, t_point2d *b, int dxy[2], int *xi)
 {
 	if (a == NULL || b == NULL || dxy == NULL || xi == NULL)
 		return ;
-	dxy[0] = b->x - a->x;
-	dxy[1] = b->y - a->y;
+	dxy[0] = b->coords.x - a->coords.x;
+	dxy[1] = b->coords.y - a->coords.y;
 	*xi = 1;
 	if (dxy[0] < 0)
 	{
@@ -68,48 +68,48 @@ static void	draw_line_high_init(t_vector2 *a, t_vector2 *b, int dxy[2], int *xi)
 	}
 }
 
-static void	draw_line_high(t_image *img, t_vector2 *a, t_vector2 *b)
+static void	draw_line_high(t_image *img, t_point2d *a, t_point2d *b)
 {
-	t_vector2	pt;
+	t_point2d	pt;
 	int			dxy[2];
 	int			xi;
 	int			d;
 
 	draw_line_high_init(a, b, dxy, &xi);
-	pt.x = a->x;
-	pt.y = a->y;
+	pt.coords.x = a->coords.x;
+	pt.coords.y = a->coords.y;
 	pt.color.value = a->color.value;
 	d = 2 * dxy[0] - dxy[1];
-	while (pt.y <= b->y)
+	while (pt.coords.y <= b->coords.y)
 	{
 		pt.color.value = get_color_value(\
-				&a->color, &b->color, (pt.y - a->y), dxy[1]);
+				&a->color, &b->color, (pt.coords.y - a->coords.y), dxy[1]);
 		draw_pixel(img, &pt);
 		if (d > 0)
 		{
-			pt.x = pt.x + xi;
+			pt.coords.x = pt.coords.x + xi;
 			d = d + (2 * (dxy[0] - dxy[1]));
 		}
 		else
 			d = d + 2 * dxy[0];
-		pt.y += 1;
+		pt.coords.y += 1;
 	}
 }
 
-void	draw_line(t_image *img, t_vector2 *a, t_vector2 *b)
+void	draw_line(t_image *img, t_point2d *a, t_point2d *b)
 {
 	if (img == NULL || a == NULL || b == NULL)
 		return ;
-	if (abs(b->y - a->y) < abs(b->x - a->x))
+	if (abs(b->coords.y - a->coords.y) < abs(b->coords.x - a->coords.x))
 	{
-		if (a->x < b->x)
+		if (a->coords.x < b->coords.x)
 			draw_line_low(img, a, b);
 		else
 			draw_line_low(img, b, a);
 	}
 	else
 	{
-		if (a->y < b->y)
+		if (a->coords.y < b->coords.y)
 			draw_line_high(img, a, b);
 		else
 			draw_line_high(img, b, a);
