@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 11:10:40 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 11:30:08 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,44 @@ void	init_data_project(t_fdf_data *data)
 	data->mlx_win = NULL;
 	data->img1 = NULL;
 	data->map = NULL;
+	data->projection = NULL;
 	data->nb_lines = 0;
 	data->nb_line_elts = 0;
 	camera_init(&data->camera);
 }
 
+static void	clean_map_proj(t_point3d **map, t_point2d **proj, size_t nb_lines)
+{
+	size_t	i;
+
+	if (map != NULL)
+	{
+		i = 0;
+		while (i < nb_lines)
+			free(map[i++]);
+		free(map);
+	}
+	if (proj != NULL)
+	{
+		i = 0;
+		while (i < nb_lines)
+			free(proj[i++]);
+		free(proj);
+	}
+}
+
 void	clean_remove(t_fdf_data *data)
 {
-	size_t		i;
 	t_point3d	**map;
+	t_point2d	**projection;
 
 	if (data == NULL)
 		return ;
 	if (data->mlx_ptr != NULL && data->mlx_win != NULL)
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 	map = data->map;
-	if (map != NULL)
-	{
-		i = 0;
-		while (i < data->nb_lines)
-			free(map[i++]);
-		free(map);
-	}
+	projection = data->projection;
+	clean_map_proj(map, projection, data->nb_lines);
 	if (data->mlx_ptr != NULL && data->img1 != NULL)
 		destroy_img(data->mlx_ptr, data->img1);
 	if (data->mlx_ptr != NULL)

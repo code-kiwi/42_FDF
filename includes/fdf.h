@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 11:15:48 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/21 12:10:39 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ typedef struct s_fdf_data
 	void				*mlx_win;
 	t_image				*img1;
 	t_point3d			**map;
+	t_point2d			**projection;
 	size_t				nb_lines;
 	size_t				nb_line_elts;
 	t_camera			camera;
@@ -134,6 +135,10 @@ void		camera_init(t_camera *camera);
 // Draw functions
 void		draw_pixel(t_image *img, t_point2d *pt);
 void		draw_line(t_image *img, t_point2d *a, t_point2d *b);
+
+// Projection functions
+bool		projection_init(t_fdf_data *data);
+void		projection_calculate(t_fdf_data *data);
 
 // Event handling
 void		add_event_handlers(t_fdf_data *data);
