@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/21 16:15:06 by mhotting         ###   ########.fr        #
+#    Updated: 2024/03/25 10:24:13 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS_FILES				=	fdf.c					\
 							projection_init.c		\
 							projection.c			\
 							render.c				\
+							matrix.c				\
 							utils.c
 SRCS					=	$(addprefix $(SRCS_MAIN_DIR), $(SRCS_FILES))
 

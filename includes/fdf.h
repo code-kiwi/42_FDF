@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 16:08:41 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:25:26 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
+
+
+#include <stdio.h>
 
 # define ERROR_MSG_USAGE "Usage: fdf infile"
 # define ERROR_MSG_INIT "Error - Impossible to init mlx data"
@@ -44,10 +47,16 @@
 
 # define CAMERA_INITIAL_POSITION_X 0.0f
 # define CAMERA_INITIAL_POSITION_Y 0.0f
-# define CAMERA_INITIAL_POSITION_Z 0.0f
-# define CAMERA_INITIAL_DIRECTION_X 0.0f
-# define CAMERA_INITIAL_DIRECTION_Y 0.0f
-# define CAMERA_INITIAL_DIRECTION_Z 0.0f
+# define CAMERA_INITIAL_POSITION_Z -5.0f
+# define CAMERA_INITIAL_X_DIRECTION_X 1.0f
+# define CAMERA_INITIAL_X_DIRECTION_Y 0.0f
+# define CAMERA_INITIAL_X_DIRECTION_Z 0.0f
+# define CAMERA_INITIAL_Y_DIRECTION_X 0.0f
+# define CAMERA_INITIAL_Y_DIRECTION_Y 1.0f
+# define CAMERA_INITIAL_Y_DIRECTION_Z 0.0f
+# define CAMERA_INITIAL_Z_DIRECTION_X 0.0f
+# define CAMERA_INITIAL_Z_DIRECTION_Y 0.0f
+# define CAMERA_INITIAL_Z_DIRECTION_Z 1.0f
 # define CAMERA_INITIAL_FOV 0.7854f
 
 enum e_mlx_event
@@ -78,15 +87,16 @@ typedef struct s_image
 
 typedef struct s_vector3
 {
-	float			x;
-	float			y;
-	float			z;
+	float	x;
+	float	y;
+	float	z;
+	float	w;
 }	t_vector3;
 
 typedef struct s_vector2
 {
-	int				x;
-	int				y;
+	int	x;
+	int	y;
 }	t_vector2;
 
 typedef struct s_point_3d
@@ -104,8 +114,11 @@ typedef struct s_point_2d
 typedef struct s_camera
 {
 	t_vector3	position;
-	t_vector3	direction;
+	t_vector3	x_direction;
+	t_vector3	y_direction;
+	t_vector3	z_direction;
 	float		fov;
+	float		matrix[4][4];
 }	t_camera;
 
 typedef struct s_fdf_data
@@ -147,6 +160,9 @@ void		draw_line(t_image *img, t_point2d *a, t_point2d *b);
 // Projection functions
 bool		projection_init(t_fdf_data *data);
 void		projection_calculate(t_fdf_data *data);
+
+// Matrix functions
+t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p);
 
 // Render function
 int			render(void *data_received);

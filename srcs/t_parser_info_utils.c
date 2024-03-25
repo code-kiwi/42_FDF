@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:52:30 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 11:09:39 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/25 12:24:03 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ void	parser_info_add_coords(t_parser_info *info, size_t l, size_t c, int z)
 		return ;
 	}
 	map = info->map;
-	map[l][c].coords.x = l;
-	map[l][c].coords.y = c;
-	map[l][c].coords.z = z;
+	map[l][c].coords.x = c * 100.0f;
+	map[l][c].coords.y = -1.0f * l * 100.0f;
+	map[l][c].coords.z = 1.0f * z;
+	map[l][c].coords.w = 1.0f;
 }
 
 void	parser_info_add_color(t_parser_info *info, size_t l, size_t c, int col)
