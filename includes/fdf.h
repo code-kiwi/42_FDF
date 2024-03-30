@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/29 14:15:15 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/30 15:02:20 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,21 @@
 # define FDF_FILE_EXTENSION_LEN 4
 
 # define CAMERA_INITIAL_POSITION_X 0.0f
-# define CAMERA_INITIAL_POSITION_Y 0.0f
-# define CAMERA_INITIAL_POSITION_Z -5.0f
+# define CAMERA_INITIAL_POSITION_Y 5.0f
+# define CAMERA_INITIAL_POSITION_Z 0.0f
+
 # define CAMERA_INITIAL_X_DIRECTION_X 1.0f
 # define CAMERA_INITIAL_X_DIRECTION_Y 0.0f
 # define CAMERA_INITIAL_X_DIRECTION_Z 0.0f
+
 # define CAMERA_INITIAL_Y_DIRECTION_X 0.0f
-# define CAMERA_INITIAL_Y_DIRECTION_Y 1.0f
-# define CAMERA_INITIAL_Y_DIRECTION_Z 0.0f
+# define CAMERA_INITIAL_Y_DIRECTION_Y 0.0f
+# define CAMERA_INITIAL_Y_DIRECTION_Z 1.0f
+
 # define CAMERA_INITIAL_Z_DIRECTION_X 0.0f
-# define CAMERA_INITIAL_Z_DIRECTION_Y 0.0f
-# define CAMERA_INITIAL_Z_DIRECTION_Z 1.0f
+# define CAMERA_INITIAL_Z_DIRECTION_Y -1.0f
+# define CAMERA_INITIAL_Z_DIRECTION_Z 0.0f
+
 # define CAMERA_INITIAL_FOV 0.7854f
 
 enum e_mlx_event

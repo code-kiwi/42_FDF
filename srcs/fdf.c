@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:48:10 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/29 14:38:22 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:52:26 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv)
 	size_t		i;
 	size_t		j;
 	t_point3d	point;
+	t_vector3	temp;
 
 	i = 0;
 	while (i < data.nb_lines)
@@ -34,7 +35,9 @@ int	main(int argc, char **argv)
 		while (j < data.nb_line_elts)
 		{
 			point = data.map[i][j];
+			temp = matrix_applied_to_point(data.camera.matrix, point.coords);
 			printf("POINT: (%0.2f, %0.2f, %0.2f, %0.2f)\n", point.coords.x, point.coords.y, point.coords.z, point.coords.w);
+			printf("PROJECTION: (%0.2f, %0.2f, %0.2f, %0.2f)\n", temp.x, temp.y, temp.z, temp.w);
 			while (getchar() != '\n');
 			j++;
 		}

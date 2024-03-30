@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:14:33 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/25 10:29:21 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/30 14:52:12 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,4 @@ t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p)
 	result.w = 1.0f;
 	return (result);
 }
+
