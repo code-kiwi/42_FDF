@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/30 15:02:20 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/31 17:42:40 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 # define FDF_FILE_EXTENSION_LEN 4
 
 # define CAMERA_INITIAL_POSITION_X 0.0f
-# define CAMERA_INITIAL_POSITION_Y 5.0f
+# define CAMERA_INITIAL_POSITION_Y 10.0f
 # define CAMERA_INITIAL_POSITION_Z 0.0f
 
 # define CAMERA_INITIAL_X_DIRECTION_X 1.0f
@@ -167,6 +167,10 @@ void		projection_calculate(t_fdf_data *data);
 
 // Matrix functions
 t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p);
+void		matrix_product(float m[4][4], float n[4][4]);
+void		matrix_copy(float dest[4][4], float src[4][4]);
+void		matrix_transpose(float m[4][4]);
+void		matrix_init_identity(float m[4][4]);
 
 // Render function
 int			render(void *data_received);

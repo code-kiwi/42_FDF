@@ -6,11 +6,32 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:14:33 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/30 14:52:12 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/31 15:49:35 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	matrix_init_identity(float m[4][4])
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			if (i == j)
+				m[i][j] = 1.0f;
+			else
+				m[i][j] = 0.0f;
+			j++;
+		}
+		i++;
+	}
+}
 
 t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p)
 {
@@ -23,3 +44,68 @@ t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p)
 	return (result);
 }
 
+void	matrix_transpose(float m[4][4])
+{
+	float	temp;
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = i;
+		while (j < 4)
+		{
+			temp = m[i][j];
+			m[i][j] = m[j][i];
+			m[j][i] = temp;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	matrix_copy(float dest[4][4], float src[4][4])
+{
+	size_t	i;
+	size_t	j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			dest[i][j] = src[i][j];
+			j++;
+		}
+		i++;
+	}
+}
+
+void	matrix_product(float m[4][4], float n[4][4])
+{
+	float	temp[4][4];
+	size_t	i;
+	size_t	j;
+	size_t	k;
+
+	matrix_copy(temp, m);
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			m[i][j] = 0;
+			k = 0;
+			while (k < 4)
+			{
+				m[i][j] += temp[i][k] * n[k][j];
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+}

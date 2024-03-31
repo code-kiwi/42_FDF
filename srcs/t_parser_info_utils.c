@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:52:30 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/29 15:34:45 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/31 17:36:03 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ void	parser_info_add_coords(t_parser_info *info, size_t l, size_t c, int z)
 	map = info->map;
 	map[l][c].coords.x = 1.0f * c;
 	map[l][c].coords.x -= ((float) info->nb_line_elts - 1.0f) / 2.0f;
+	map[l][c].coords.x *= 100.0f;
 	map[l][c].coords.y = -1.0f * l;
 	map[l][c].coords.y += ((float) info->nb_lines - 1.0f) / 2.0f;
+	map[l][c].coords.y *= 100.0f;
 	map[l][c].coords.z = 1.0f * z;
 	map[l][c].coords.w = 1.0f;
 }

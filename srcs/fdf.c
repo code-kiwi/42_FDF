@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:48:10 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/30 14:52:26 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/03/31 17:43:28 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 	if (!parse_input_file(&data, argv[1]) || data.map == NULL)
 		handle_error(&data, ERROR_MSG_INFILE);
 	
+	/*
 	size_t		i;
 	size_t		j;
 	t_point3d	point;
@@ -44,6 +45,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	return (0);
+	*/
 
 	if (!projection_init(&data) || data.projection == NULL)
 		handle_error(&data, ERROR_MSG_UNKNOWN);
