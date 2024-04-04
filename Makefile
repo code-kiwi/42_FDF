@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/03/25 10:24:13 by mhotting         ###   ########.fr        #
+#    Updated: 2024/04/04 15:11:56 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,6 +58,7 @@ SRCS_FILES				=	fdf.c					\
 							event_handlers.c		\
 							projection_init.c		\
 							projection.c			\
+							rotation.c				\
 							render.c				\
 							matrix.c				\
 							utils.c

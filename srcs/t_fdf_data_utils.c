@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 15:34:24 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:08:00 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,9 @@ bool	open_project_window(t_fdf_data *data)
 
 void	init_data_project(t_fdf_data *data)
 {
-	data->mlx_ptr = NULL;
-	data->mlx_win = NULL;
-	data->img1 = NULL;
-	data->img2 = NULL;
-	data->img_active = NULL;
-	data->map = NULL;
-	data->projection = NULL;
-	data->nb_lines = 0;
-	data->nb_line_elts = 0;
-	data->event_loop_counter = 0;
+	if (data == NULL)
+		return ;
+	ft_memset(data, 0, sizeof(t_fdf_data));
 	camera_init(&data->camera);
 }
 

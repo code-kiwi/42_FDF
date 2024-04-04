@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:54:11 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 15:53:49 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:17:54 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	keyboard_handler(int key, void *data_received)
 		clean_remove(data);
 		exit(EXIT_SUCCESS);
 	}
+	else if (key == KEY_X || key == KEY_Y || key == KEY_Z)
+		rotation_handler(data, key);
 	return (0);
 }
 
@@ -44,4 +46,16 @@ void	add_event_handlers(t_fdf_data *data)
 	mlx_hook(data->mlx_win, MLX_ON_DESTROY, (1L << 3), handle_destroy, data);
 	mlx_key_hook(data->mlx_win, keyboard_handler, data);
 	return ;
+}
+
+void	rotation_handler(t_fdf_data *data, int key)
+{
+	if (data == NULL || (key != KEY_X && key != KEY_Y && key != KEY_Z ))
+		return ;
+	if (key == KEY_X)
+		data->rot_x = !(data->rot_x);
+	else if (key == KEY_Y)
+		data->rot_y = !(data->rot_y);
+	else if (key == KEY_Z)
+		data->rot_z = !(data->rot_z);
 }

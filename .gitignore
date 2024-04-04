@@ -7,3 +7,4 @@ includes/mlx.h
 objs/*
 deps/*
 fdf
+*.swp

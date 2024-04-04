@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:14:33 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/31 15:49:35 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:50:49 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,3 +109,23 @@ void	matrix_product(float m[4][4], float n[4][4])
 		i++;
 	}
 }
+
+void	matrix_print(float matrix[4][4])
+{
+	size_t	i, j;
+
+	i = 0;
+	while (i < 4)
+	{
+		j = 0;
+		while (j < 4)
+		{
+			printf("%.2f ", matrix[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+	printf("\n");
+}
+

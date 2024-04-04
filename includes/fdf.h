@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/31 17:42:40 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:59:04 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@
 # define EVENT_LOOP_FRAME_TARGET 1000
 
 # define KEY_ESC 65307
+# define KEY_X 120
+# define KEY_Y 121
+# define KEY_Z 122
 
 # define COLOR_SEPARATOR ','
 # define COLOR_DEFAULT 0xFFFFFF
@@ -46,22 +49,25 @@
 # define FDF_FILE_EXTENSION_LEN 4
 
 # define CAMERA_INITIAL_POSITION_X 0.0f
-# define CAMERA_INITIAL_POSITION_Y 10.0f
-# define CAMERA_INITIAL_POSITION_Z 0.0f
+# define CAMERA_INITIAL_POSITION_Y 0.0f
+# define CAMERA_INITIAL_POSITION_Z -15.0f
 
 # define CAMERA_INITIAL_X_DIRECTION_X 1.0f
 # define CAMERA_INITIAL_X_DIRECTION_Y 0.0f
 # define CAMERA_INITIAL_X_DIRECTION_Z 0.0f
 
 # define CAMERA_INITIAL_Y_DIRECTION_X 0.0f
-# define CAMERA_INITIAL_Y_DIRECTION_Y 0.0f
-# define CAMERA_INITIAL_Y_DIRECTION_Z 1.0f
+# define CAMERA_INITIAL_Y_DIRECTION_Y 1.0f
+# define CAMERA_INITIAL_Y_DIRECTION_Z 0.0f
 
 # define CAMERA_INITIAL_Z_DIRECTION_X 0.0f
-# define CAMERA_INITIAL_Z_DIRECTION_Y -1.0f
-# define CAMERA_INITIAL_Z_DIRECTION_Z 0.0f
+# define CAMERA_INITIAL_Z_DIRECTION_Y 0.0f
+# define CAMERA_INITIAL_Z_DIRECTION_Z 1.0f
 
 # define CAMERA_INITIAL_FOV 0.7854f
+
+# define PI 3.14159f
+# define ROT_ANGLE PI / 64.0f
 
 enum e_mlx_event
 {
@@ -138,6 +144,9 @@ typedef struct s_fdf_data
 	size_t				nb_line_elts;
 	t_camera			camera;
 	size_t				event_loop_counter;
+	bool				rot_x;
+	bool				rot_y;
+	bool				rot_z;
 }	t_fdf_data;
 
 // t_fdf_data functions
@@ -165,18 +174,26 @@ void		draw_line(t_image *img, t_point2d *a, t_point2d *b);
 bool		projection_init(t_fdf_data *data);
 void		projection_calculate(t_fdf_data *data);
 
+// Rotation functions
+void		rotation_apply(t_fdf_data *data);
+void		rot_x_eval_matrix(float rot_matrix[4][4]);
+void		rot_y_eval_matrix(float rot_matrix[4][4]);
+void		rot_z_eval_matrix(float rot_matrix[4][4]);
+
 // Matrix functions
 t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p);
 void		matrix_product(float m[4][4], float n[4][4]);
 void		matrix_copy(float dest[4][4], float src[4][4]);
 void		matrix_transpose(float m[4][4]);
 void		matrix_init_identity(float m[4][4]);
+void		matrix_print(float matrix[4][4]);
 
 // Render function
 int			render(void *data_received);
 
 // Event handling
 void		add_event_handlers(t_fdf_data *data);
+void		rotation_handler(t_fdf_data *data, int key);
 
 // Utils
 void		handle_error(t_fdf_data *data, char *error_message);

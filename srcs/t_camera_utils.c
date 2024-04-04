@@ -6,30 +6,11 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:14:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/31 17:43:34 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/04 15:50:02 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-static void	print_matrix(float matrix[4][4])
-{
-	size_t	i, j;
-
-	i = 0;
-	while (i < 4)
-	{
-		j = 0;
-		while (j < 4)
-		{
-			printf("%.2f ", matrix[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("\n");
-}
 
 static void	camera_matrix_calc(t_camera *camera)
 {
