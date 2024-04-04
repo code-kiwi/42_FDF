@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:19:39 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/15 14:35:39 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/05 01:33:29 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	get_color_value(t_argb_color *col_a, t_argb_color *col_b, int num, int den)
 		return (0xFFFFFF);
 	if (col_a->value == col_b->value)
 		return (col_a->value);
+	if (den == 0)
+		den = 1;
 	delta = (int)(col_a->components[0]) - (int)(col_b->components[0]);
 	res.components[0] = col_a->components[0] - (delta * num / den);
 	delta = col_a->components[1] - col_b->components[1];

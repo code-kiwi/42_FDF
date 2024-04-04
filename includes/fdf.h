@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/04 15:59:04 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/05 01:47:12 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 
 # define CAMERA_INITIAL_POSITION_X 0.0f
 # define CAMERA_INITIAL_POSITION_Y 0.0f
-# define CAMERA_INITIAL_POSITION_Z -15.0f
+# define CAMERA_INITIAL_POSITION_Z 400.0f
 
 # define CAMERA_INITIAL_X_DIRECTION_X 1.0f
 # define CAMERA_INITIAL_X_DIRECTION_Y 0.0f
@@ -62,7 +62,7 @@
 
 # define CAMERA_INITIAL_Z_DIRECTION_X 0.0f
 # define CAMERA_INITIAL_Z_DIRECTION_Y 0.0f
-# define CAMERA_INITIAL_Z_DIRECTION_Z 1.0f
+# define CAMERA_INITIAL_Z_DIRECTION_Z -1.0f
 
 # define CAMERA_INITIAL_FOV 0.7854f
 
