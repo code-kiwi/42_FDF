@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 14:08:38 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 11:08:49 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:54:54 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct s_parser_info
 	size_t		nb_line_elts;
 	t_point3d	**map;
 	bool		error;
+	float		z_max;
 }	t_parser_info;
 
 // Parsing functions

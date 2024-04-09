@@ -6,11 +6,18 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:57:51 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/11 12:36:01 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:12:43 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+float	f_max(float a, float b)
+{
+	if (a > b)
+		return (a);
+	return (b);
+}
 
 void	handle_error(t_fdf_data *data, char *error_message)
 {

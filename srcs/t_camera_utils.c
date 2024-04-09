@@ -6,13 +6,13 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:14:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/04 15:50:02 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:04:42 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-static void	camera_matrix_calc(t_camera *camera)
+void	camera_matrix_calc(t_camera *camera)
 {
 	float	matrix_t[4][4];
 

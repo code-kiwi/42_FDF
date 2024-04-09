@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:09:38 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/05 01:46:53 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:23:55 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,10 @@ void	projection_calculate(t_fdf_data *data)
 		j = 0;
 		while (j < data->nb_line_elts)
 		{
-			temp = matrix_applied_to_point(data->camera.matrix, map[i][j].coords);
-			if (temp.z == 0)
-				printf("Projection zero div\n");
-			proj[i][j].coords.x = 100.0f * temp.x / temp.z;
-			proj[i][j].coords.y = 100.0f * temp.y / temp.z;
+			temp = matrix_applied_to_point(data->camera.matrix, \
+					map[i][j].coords);
+			proj[i][j].coords.x = 400.0f * temp.x / temp.z;
+			proj[i][j].coords.y = 400.0f * temp.y / temp.z;
 			j++;
 		}
 		i++;

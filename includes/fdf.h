@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/05 01:47:12 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:11:33 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@
 
 # define CAMERA_INITIAL_POSITION_X 0.0f
 # define CAMERA_INITIAL_POSITION_Y 0.0f
-# define CAMERA_INITIAL_POSITION_Z 400.0f
+# define CAMERA_INITIAL_POSITION_Z 30.0f
 
 # define CAMERA_INITIAL_X_DIRECTION_X 1.0f
 # define CAMERA_INITIAL_X_DIRECTION_Y 0.0f
@@ -147,6 +147,7 @@ typedef struct s_fdf_data
 	bool				rot_x;
 	bool				rot_y;
 	bool				rot_z;
+	float				z_max;
 }	t_fdf_data;
 
 // t_fdf_data functions
@@ -165,6 +166,7 @@ void		img_clear(t_image *img);
 
 // t_camera functions
 void		camera_init(t_camera *camera);
+void		camera_matrix_calc(t_camera *camera);
 
 // Draw functions
 void		draw_pixel(t_image *img, t_point2d *pt);
@@ -196,6 +198,7 @@ void		add_event_handlers(t_fdf_data *data);
 void		rotation_handler(t_fdf_data *data, int key);
 
 // Utils
+float		f_max(float a, float b);
 void		handle_error(t_fdf_data *data, char *error_message);
 
 #endif

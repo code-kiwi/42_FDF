@@ -6,12 +6,15 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:12:04 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 15:52:36 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:22:43 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Draws a pixel onto the given image
+ */
 void	draw_pixel(t_image *img, t_point2d *pt)
 {
 	char	*dest;

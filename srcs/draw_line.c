@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:55:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 11:03:32 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:22:10 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,11 @@ static void	draw_line_high(t_image *img, t_point2d *a, t_point2d *b)
 	}
 }
 
+/*
+ *	Draws a line from point a to point b onto the given image
+ *	Uses the Bresenham algorithm
+ *	Calls two different functions depending on the line slope
+ */
 void	draw_line(t_image *img, t_point2d *a, t_point2d *b)
 {
 	if (img == NULL || a == NULL || b == NULL)

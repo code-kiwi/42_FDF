@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:54:11 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/04 15:17:54 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:13:37 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	add_event_handlers(t_fdf_data *data)
 
 void	rotation_handler(t_fdf_data *data, int key)
 {
-	if (data == NULL || (key != KEY_X && key != KEY_Y && key != KEY_Z ))
+	if (data == NULL || (key != KEY_X && key != KEY_Y && key != KEY_Z))
 		return ;
 	if (key == KEY_X)
 		data->rot_x = !(data->rot_x);

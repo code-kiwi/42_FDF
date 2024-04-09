@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:52:30 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/04 14:58:58 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/08 19:55:50 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	parser_info_add_coords(t_parser_info *info, size_t l, size_t c, int z)
 {
 	t_point3d	**map;
+	float		z_abs_val;
 
 	if (info == NULL)
 		return ;
@@ -29,6 +30,9 @@ void	parser_info_add_coords(t_parser_info *info, size_t l, size_t c, int z)
 	map[l][c].coords.y = -1.0f * l;
 	map[l][c].coords.y += ((float) info->nb_lines - 1.0f) / 2.0f;
 	map[l][c].coords.z = 1.0f * z;
+	z_abs_val = fabs(map[l][c].coords.z);
+	if (z_abs_val > info->z_max)
+		info->z_max = z_abs_val;
 	map[l][c].coords.w = 1.0f;
 }
 
@@ -51,10 +55,7 @@ void	parser_info_init(t_parser_info *info)
 {
 	if (info == NULL)
 		return ;
-	info->nb_lines = 0;
-	info->nb_line_elts = 0;
-	info->map = NULL;
-	info->error = false;
+	ft_memset(info, 0, sizeof(t_parser_info));
 }
 
 void	parser_info_map_free(t_point3d **map, size_t nb_lines)
