@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/04/04 15:11:56 by mhotting         ###   ########.fr        #
+#    Updated: 2024/04/09 18:47:44 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ ifndef NOFLAGS
 endif
 HFLAGS					=	-I$(HEADERS_DIR) -I$(LIBFT_HEADERS_DIR) -I$(MLX_HEADERS_DIR)
 FSFLAGS					=	-fsanitize=address
+MATH_FLAG				=	-lm
 
 # HEADERS
 HEADERS_DIR				=	includes/
@@ -55,12 +56,16 @@ SRCS_FILES				=	fdf.c					\
 							t_camera_utils.c		\
 							draw_pixel.c			\
 							draw_line.c				\
-							event_handlers.c		\
+							event_handlers1.c		\
+							event_handlers2.c		\
 							projection_init.c		\
 							projection.c			\
-							rotation.c				\
+							rotation1.c				\
+							rotation2.c				\
 							render.c				\
 							matrix.c				\
+							calibration.c			\
+							z_multiply.c			\
 							utils.c
 SRCS					=	$(addprefix $(SRCS_MAIN_DIR), $(SRCS_FILES))
 
@@ -80,7 +85,7 @@ DEPS					=	$(addprefix $(DEPS_MAIN_DIR), $(DEPS_FILES))
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(CFLAGS) $(HFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $@
+	$(CC) $(CFLAGS) $(HFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) $(MATH_FLAG) -o $@
 
 $(OBJS_MAIN_DIR)%.o: $(SRCS_MAIN_DIR)%.c $(HEADERS) $(LIBFT_HEADERS)
 	@mkdir -p $(@D)

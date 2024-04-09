@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:57:51 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 16:12:43 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:14:29 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,13 @@
 float	f_max(float a, float b)
 {
 	if (a > b)
+		return (a);
+	return (b);
+}
+
+float	f_min(float a, float b)
+{
+	if (a < b)
 		return (a);
 	return (b);
 }

@@ -1,45 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotation.c                                         :+:      :+:    :+:   */
+/*   rotation1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:10:19 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/04 16:02:26 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 16:49:45 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	rot_x_eval_matrix(float rot_matrix[4][4])
+void	rot_x_eval_matrix(float rot_matrix[4][4], float angle)
 {
 	matrix_init_identity(rot_matrix);
-	rot_matrix[1][1] = cos(ROT_ANGLE);
-	rot_matrix[1][2] = -1.0f * sin(ROT_ANGLE);
-	rot_matrix[2][1] = sin(ROT_ANGLE);
-	rot_matrix[2][2] = cos(ROT_ANGLE);
+	rot_matrix[1][1] = cos(angle);
+	rot_matrix[1][2] = -1.0f * sin(angle);
+	rot_matrix[2][1] = sin(angle);
+	rot_matrix[2][2] = cos(angle);
 }
 
-void	rot_y_eval_matrix(float rot_matrix[4][4])
+void	rot_y_eval_matrix(float rot_matrix[4][4], float angle)
 {
 	matrix_init_identity(rot_matrix);
-	rot_matrix[0][0] = cos(ROT_ANGLE);
-	rot_matrix[0][2] = sin(ROT_ANGLE);
-	rot_matrix[2][0] = -1.0f * sin(ROT_ANGLE);
-	rot_matrix[2][2] = cos(ROT_ANGLE);
+	rot_matrix[0][0] = cos(angle);
+	rot_matrix[0][2] = sin(angle);
+	rot_matrix[2][0] = -1.0f * sin(angle);
+	rot_matrix[2][2] = cos(angle);
 }
 
-void	rot_z_eval_matrix(float rot_matrix[4][4])
+void	rot_z_eval_matrix(float rot_matrix[4][4], float angle)
 {
 	matrix_init_identity(rot_matrix);
-	rot_matrix[0][0] = cos(ROT_ANGLE);
-	rot_matrix[0][1] = -1.0f * sin(ROT_ANGLE);
-	rot_matrix[1][0] = sin(ROT_ANGLE);
-	rot_matrix[1][1] = cos(ROT_ANGLE);
+	rot_matrix[0][0] = cos(angle);
+	rot_matrix[0][1] = -1.0f * sin(angle);
+	rot_matrix[1][0] = sin(angle);
+	rot_matrix[1][1] = cos(angle);
 }
 
-static void	rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4])
+void	rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4])
 {
 	t_vector3	temp;
 	size_t		i;
@@ -73,17 +73,17 @@ void	rotation_apply(t_fdf_data *data)
 		return ;
 	if (data->rot_x)
 	{
-		rot_x_eval_matrix(rot_matrix);
+		rot_x_eval_matrix(rot_matrix, ROT_ANGLE);
 		rotation_apply_matrix(data, rot_matrix);
 	}
 	if (data->rot_y)
 	{
-		rot_y_eval_matrix(rot_matrix);
+		rot_y_eval_matrix(rot_matrix, ROT_ANGLE);
 		rotation_apply_matrix(data, rot_matrix);
 	}
 	if (data->rot_z)
 	{
-		rot_z_eval_matrix(rot_matrix);
+		rot_z_eval_matrix(rot_matrix, ROT_ANGLE);
 		rotation_apply_matrix(data, rot_matrix);
 	}
 }

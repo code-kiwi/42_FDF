@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/08 20:11:33 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:18:08 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
-
-
-#include <stdio.h>
 
 # define ERROR_MSG_USAGE "Usage: fdf infile"
 # define ERROR_MSG_INIT "Error - Impossible to init mlx data"
@@ -40,10 +37,24 @@
 # define KEY_X 120
 # define KEY_Y 121
 # define KEY_Z 122
+# define KEY_PLUS_NUM 65451
+# define KEY_MINUS_NUM 65453
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define MOUSE_SCROLL_UP 4
+# define MOUSE_SCROLL_DOWN 5
 
 # define COLOR_SEPARATOR ','
 # define COLOR_DEFAULT 0xFFFFFF
 # define UPPER_HEX_BASE "0123456789ABCDEF"
+# define PROJECTION_SIZE 400.0f
+# define PROJECTION_SIZE_DELTA 10.0f
+# define PROJECTION_SIZE_MIN 10.0f
+# define PROJECTION_SIZE_MAX 1000.0f
+
+# define Z_CALIBRATE_FACTOR 0.4f
 
 # define FDF_FILE_EXTENSION ".fdf"
 # define FDF_FILE_EXTENSION_LEN 4
@@ -51,23 +62,20 @@
 # define CAMERA_INITIAL_POSITION_X 0.0f
 # define CAMERA_INITIAL_POSITION_Y 0.0f
 # define CAMERA_INITIAL_POSITION_Z 30.0f
-
 # define CAMERA_INITIAL_X_DIRECTION_X 1.0f
 # define CAMERA_INITIAL_X_DIRECTION_Y 0.0f
 # define CAMERA_INITIAL_X_DIRECTION_Z 0.0f
-
 # define CAMERA_INITIAL_Y_DIRECTION_X 0.0f
 # define CAMERA_INITIAL_Y_DIRECTION_Y 1.0f
 # define CAMERA_INITIAL_Y_DIRECTION_Z 0.0f
-
 # define CAMERA_INITIAL_Z_DIRECTION_X 0.0f
 # define CAMERA_INITIAL_Z_DIRECTION_Y 0.0f
 # define CAMERA_INITIAL_Z_DIRECTION_Z -1.0f
-
 # define CAMERA_INITIAL_FOV 0.7854f
+# define CAMERA_VARIATION 1.0f
 
 # define PI 3.14159f
-# define ROT_ANGLE PI / 64.0f
+# define ROT_ANGLE 0.049087344f
 
 enum e_mlx_event
 {
@@ -148,6 +156,7 @@ typedef struct s_fdf_data
 	bool				rot_y;
 	bool				rot_z;
 	float				z_max;
+	float				projection_size;
 }	t_fdf_data;
 
 // t_fdf_data functions
@@ -178,9 +187,15 @@ void		projection_calculate(t_fdf_data *data);
 
 // Rotation functions
 void		rotation_apply(t_fdf_data *data);
-void		rot_x_eval_matrix(float rot_matrix[4][4]);
-void		rot_y_eval_matrix(float rot_matrix[4][4]);
-void		rot_z_eval_matrix(float rot_matrix[4][4]);
+void		rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4]);
+void		rotate_map(t_fdf_data *data, float angle, char axe);
+void		rot_x_eval_matrix(float rot_matrix[4][4], float angle);
+void		rot_y_eval_matrix(float rot_matrix[4][4], float angle);
+void		rot_z_eval_matrix(float rot_matrix[4][4], float angle);
+
+// Height modifying function
+void		z_multiply(t_fdf_data *data, float factor);
+void		z_add(t_fdf_data *data, float nb);
 
 // Matrix functions
 t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p);
@@ -188,17 +203,22 @@ void		matrix_product(float m[4][4], float n[4][4]);
 void		matrix_copy(float dest[4][4], float src[4][4]);
 void		matrix_transpose(float m[4][4]);
 void		matrix_init_identity(float m[4][4]);
-void		matrix_print(float matrix[4][4]);
 
 // Render function
 int			render(void *data_received);
 
+// Calibration function
+void		calibrate(t_fdf_data *data);
+
 // Event handling
 void		add_event_handlers(t_fdf_data *data);
 void		rotation_handler(t_fdf_data *data, int key);
+void		camera_move_handler(t_camera *camera, int key);
+void		z_evolution_handler(t_fdf_data *data, int key);
 
 // Utils
 float		f_max(float a, float b);
+float		f_min(float a, float b);
 void		handle_error(t_fdf_data *data, char *error_message);
 
 #endif

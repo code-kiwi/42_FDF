@@ -6,7 +6,7 @@
 /*   By: mhotting <mhotting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:27:52 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/08 20:10:34 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 19:01:01 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ bool	parse_input_file(t_fdf_data *data, char *filename)
 	data->nb_lines = info.nb_lines;
 	data->nb_line_elts = info.nb_line_elts;
 	data->map = info.map;
-	data->z_max = f_max(f_max(info.nb_lines, info.nb_line_elts), info.z_max);
+	data->z_max = info.z_max;
 	return (true);
 }
