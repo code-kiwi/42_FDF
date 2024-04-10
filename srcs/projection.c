@@ -6,14 +6,13 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 12:09:38 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 21:16:29 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:46:07 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-/*
-void	projection_calculate(t_fdf_data *data)
+void	projection_iso_calculate(t_fdf_data *data)
 {
 	size_t		i;
 	size_t		j;
@@ -42,9 +41,8 @@ void	projection_calculate(t_fdf_data *data)
 		i++;
 	}
 }
-*/
 
-void	projection_calculate(t_fdf_data *data)
+void	projection_orth_calculate(t_fdf_data *data)
 {
 	size_t		i;
 	size_t		j;

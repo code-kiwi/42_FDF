@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:54:11 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 18:56:19 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:48:31 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,26 @@ void	camera_move_handler(t_camera *camera, int key)
 	if (key == KEY_RIGHT)
 		camera->position.x += CAMERA_VARIATION;
 	camera_matrix_calc(camera);
+}
+
+void	switch_projection_handler(t_fdf_data *data)
+{
+	if (data == NULL)
+		return ;
+	if (data->projection_type == PROJ_ISO)
+	{
+		data->projection_type = PROJ_ORTH;
+		data->projection_size = PROJECTION_ORTH_SIZE;
+		data->projection_size_delta = PROJECTION_ORTH_SIZE_DELTA;
+		data->projection_size_min = PROJECTION_ORTH_SIZE_MIN;
+		data->projection_size_max = PROJECTION_ORTH_SIZE_MAX;
+	}
+	else
+	{
+		data->projection_type = PROJ_ISO;
+		data->projection_size = PROJECTION_ISO_SIZE;
+		data->projection_size_delta = PROJECTION_ISO_SIZE_DELTA;
+		data->projection_size_min = PROJECTION_ISO_SIZE_MIN;
+		data->projection_size_max = PROJECTION_ISO_SIZE_MAX;
+	}
 }

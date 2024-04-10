@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:59:43 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/04 15:24:28 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:45:06 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ static void	render_process(t_fdf_data *data)
 		img = data->img2;
 	img_clear(img);
 	rotation_apply(data);
-	projection_calculate(data);
+	if (data->projection_type == PROJ_ISO)
+		projection_iso_calculate(data);
+	else
+		projection_orth_calculate(data);
 	render_draw_lines(data, img);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, \
 			img->ptr, IMG_INITIAL_POSITION_X, IMG_INITIAL_POSITION_Y);

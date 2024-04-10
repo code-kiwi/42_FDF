@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 17:21:54 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:41:38 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,11 @@ void	init_data_project(t_fdf_data *data)
 		return ;
 	ft_memset(data, 0, sizeof(t_fdf_data));
 	camera_init(&data->camera);
-	data->projection_size = PROJECTION_SIZE;
+	data->projection_size = PROJECTION_ISO_SIZE;
+	data->projection_size_delta = PROJECTION_ISO_SIZE_DELTA;
+	data->projection_size_min = PROJECTION_ISO_SIZE_MIN;
+	data->projection_size_max = PROJECTION_ISO_SIZE_MAX;
+	data->projection_type = PROJ_ISO;
 }
 
 static void	clean_map_proj(t_point3d **map, t_point2d **proj, size_t nb_lines)

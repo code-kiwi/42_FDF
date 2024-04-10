@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 21:18:08 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/10 02:02:47 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
+
+
+# include <stdio.h>
 
 # define ERROR_MSG_USAGE "Usage: fdf infile"
 # define ERROR_MSG_INIT "Error - Impossible to init mlx data"
@@ -37,6 +40,7 @@
 # define KEY_X 120
 # define KEY_Y 121
 # define KEY_Z 122
+# define KEY_P 112
 # define KEY_PLUS_NUM 65451
 # define KEY_MINUS_NUM 65453
 # define KEY_UP 65362
@@ -49,12 +53,18 @@
 # define COLOR_SEPARATOR ','
 # define COLOR_DEFAULT 0xFFFFFF
 # define UPPER_HEX_BASE "0123456789ABCDEF"
-# define PROJECTION_SIZE 400.0f
-# define PROJECTION_SIZE_DELTA 10.0f
-# define PROJECTION_SIZE_MIN 10.0f
-# define PROJECTION_SIZE_MAX 1000.0f
 
-# define Z_CALIBRATE_FACTOR 0.4f
+# define PROJECTION_ORTH_SIZE 400.0f
+# define PROJECTION_ORTH_SIZE_DELTA 10.0f
+# define PROJECTION_ORTH_SIZE_MIN 10.0f
+# define PROJECTION_ORTH_SIZE_MAX 2000.0f
+
+# define PROJECTION_ISO_SIZE 10.0f
+# define PROJECTION_ISO_SIZE_DELTA 1.0f
+# define PROJECTION_ISO_SIZE_MIN 0.2f
+# define PROJECTION_ISO_SIZE_MAX 50.0f
+
+# define Z_CALIBRATE_FACTOR 0.5f
 
 # define FDF_FILE_EXTENSION ".fdf"
 # define FDF_FILE_EXTENSION_LEN 4
@@ -87,6 +97,12 @@ enum e_mlx_event
 	MLX_ON_EXPOSE = 12,
 	MLX_ON_DESTROY = 17
 };
+
+typedef enum e_projection_type
+{
+	PROJ_ISO,
+	PROJ_ORTH
+}	t_projection_type;
 
 typedef union u_argb_color
 {
@@ -157,6 +173,10 @@ typedef struct s_fdf_data
 	bool				rot_z;
 	float				z_max;
 	float				projection_size;
+	float				projection_size_delta;
+	float				projection_size_min;
+	float				projection_size_max;
+	t_projection_type	projection_type;
 }	t_fdf_data;
 
 // t_fdf_data functions
@@ -183,12 +203,16 @@ void		draw_line(t_image *img, t_point2d *a, t_point2d *b);
 
 // Projection functions
 bool		projection_init(t_fdf_data *data);
-void		projection_calculate(t_fdf_data *data);
+void		projection_iso_calculate(t_fdf_data *data);
+void		projection_orth_calculate(t_fdf_data *data);
 
 // Rotation functions
 void		rotation_apply(t_fdf_data *data);
 void		rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4]);
 void		rotate_map(t_fdf_data *data, float angle, char axe);
+void		rotation_apply_x(t_fdf_data *data, float rot_m[4][4], float angle);
+void		rotation_apply_y(t_fdf_data *data, float rot_m[4][4], float angle);
+void		rotation_apply_z(t_fdf_data *data, float rot_m[4][4], float angle);
 void		rot_x_eval_matrix(float rot_matrix[4][4], float angle);
 void		rot_y_eval_matrix(float rot_matrix[4][4], float angle);
 void		rot_z_eval_matrix(float rot_matrix[4][4], float angle);
@@ -215,6 +239,7 @@ void		add_event_handlers(t_fdf_data *data);
 void		rotation_handler(t_fdf_data *data, int key);
 void		camera_move_handler(t_camera *camera, int key);
 void		z_evolution_handler(t_fdf_data *data, int key);
+void		switch_projection_handler(t_fdf_data *data);
 
 // Utils
 float		f_max(float a, float b);

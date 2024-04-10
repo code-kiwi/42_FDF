@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:54:11 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 18:57:01 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:42:23 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	keyboard_handler(int key, void *data_received)
 		|| key == KEY_LEFT || key == KEY_RIGHT
 	)
 		camera_move_handler(&(data->camera), key);
+	else if (key == KEY_P)
+		switch_projection_handler(data);
 	return (0);
 }
 
@@ -54,11 +56,11 @@ int	mouse_handler(int button, int x, int y, void *data_received)
 		handle_error(NULL, ERROR_MSG_UNKNOWN);
 	data = (t_fdf_data *) data_received;
 	if (button == MOUSE_SCROLL_UP)
-		data->projection_size = f_min(PROJECTION_SIZE_MAX, \
-			data->projection_size + PROJECTION_SIZE_DELTA);
+		data->projection_size = f_min(data->projection_size_max, \
+				data->projection_size + data->projection_size_delta);
 	if (button == MOUSE_SCROLL_DOWN)
-		data->projection_size = f_max(PROJECTION_SIZE_MIN, \
-				data->projection_size - PROJECTION_SIZE_DELTA);
+		data->projection_size = f_max(data->projection_size_min, \
+				data->projection_size - data->projection_size_delta);
 	(void) x;
 	(void) y;
 	data = (t_fdf_data *) data_received;

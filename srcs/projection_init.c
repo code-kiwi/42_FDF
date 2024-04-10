@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 11:35:00 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/08 20:14:42 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/09 21:44:32 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,9 @@ bool	projection_init(t_fdf_data *data)
 	}
 	data->projection = proj;
 	projection_init_colors(data->map, proj, data->nb_lines, data->nb_line_elts);
-	projection_calculate(data);
+	if (data->projection_type == PROJ_ISO)
+		projection_iso_calculate(data);
+	else
+		projection_orth_calculate(data);
 	return (true);
 }

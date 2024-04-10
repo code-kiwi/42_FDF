@@ -6,38 +6,11 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:10:19 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 16:49:45 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/10 01:46:05 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	rot_x_eval_matrix(float rot_matrix[4][4], float angle)
-{
-	matrix_init_identity(rot_matrix);
-	rot_matrix[1][1] = cos(angle);
-	rot_matrix[1][2] = -1.0f * sin(angle);
-	rot_matrix[2][1] = sin(angle);
-	rot_matrix[2][2] = cos(angle);
-}
-
-void	rot_y_eval_matrix(float rot_matrix[4][4], float angle)
-{
-	matrix_init_identity(rot_matrix);
-	rot_matrix[0][0] = cos(angle);
-	rot_matrix[0][2] = sin(angle);
-	rot_matrix[2][0] = -1.0f * sin(angle);
-	rot_matrix[2][2] = cos(angle);
-}
-
-void	rot_z_eval_matrix(float rot_matrix[4][4], float angle)
-{
-	matrix_init_identity(rot_matrix);
-	rot_matrix[0][0] = cos(angle);
-	rot_matrix[0][1] = -1.0f * sin(angle);
-	rot_matrix[1][0] = sin(angle);
-	rot_matrix[1][1] = cos(angle);
-}
 
 void	rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4])
 {
@@ -65,6 +38,34 @@ void	rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4])
 	}
 }
 
+void	rotation_apply_x(t_fdf_data *data, float rot_matrix[4][4], float angle)
+{
+	rot_x_eval_matrix(rot_matrix, angle);
+	rotation_apply_matrix(data, rot_matrix);
+	if (data->projection_type == PROJ_ISO)
+	{
+		rot_y_eval_matrix(rot_matrix, -1.0f * angle);
+		rotation_apply_matrix(data, rot_matrix);
+	}
+}
+
+void	rotation_apply_y(t_fdf_data *data, float rot_matrix[4][4], float angle)
+{
+	rot_y_eval_matrix(rot_matrix, angle);
+	rotation_apply_matrix(data, rot_matrix);
+	if (data->projection_type == PROJ_ISO)
+	{
+		rot_x_eval_matrix(rot_matrix, angle);
+		rotation_apply_matrix(data, rot_matrix);
+	}
+}
+
+void	rotation_apply_z(t_fdf_data *data, float rot_matrix[4][4], float angle)
+{
+	rot_z_eval_matrix(rot_matrix, angle);
+	rotation_apply_matrix(data, rot_matrix);
+}
+
 void	rotation_apply(t_fdf_data *data)
 {
 	float	rot_matrix[4][4];
@@ -72,18 +73,9 @@ void	rotation_apply(t_fdf_data *data)
 	if (data == NULL)
 		return ;
 	if (data->rot_x)
-	{
-		rot_x_eval_matrix(rot_matrix, ROT_ANGLE);
-		rotation_apply_matrix(data, rot_matrix);
-	}
+		rotation_apply_x(data, rot_matrix, ROT_ANGLE);
 	if (data->rot_y)
-	{
-		rot_y_eval_matrix(rot_matrix, ROT_ANGLE);
-		rotation_apply_matrix(data, rot_matrix);
-	}
+		rotation_apply_y(data, rot_matrix, ROT_ANGLE);
 	if (data->rot_z)
-	{
-		rot_z_eval_matrix(rot_matrix, ROT_ANGLE);
-		rotation_apply_matrix(data, rot_matrix);
-	}
-}
+		rotation_apply_z(data, rot_matrix, ROT_ANGLE);
+}		
