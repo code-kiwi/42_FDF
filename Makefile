@@ -6,7 +6,7 @@
 #    By: mhotting <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/03/04 09:50:18 by mhotting          #+#    #+#              #
-#    Updated: 2024/04/09 18:47:44 by mhotting         ###   ########.fr        #
+#    Updated: 2024/04/11 11:58:51 by mhotting         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -101,7 +101,7 @@ $(MLX): FORCE
 FORCE:
 
 fsanitize: fclean $(LIBFT) $(MLX) $(OBJS)
-	$(CC) $(CFLAGS) $(HFLAGS) $(FSFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(HFLAGS) $(FSFLAGS) $(OBJS) $(LIBFT_FLAGS) $(MLX_FLAGS) $(MATH_FLAG) -o $(NAME)
 
 -include $(DEPS)
 

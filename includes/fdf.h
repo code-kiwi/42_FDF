@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/11 10:42:52 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:33:12 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,10 @@
 # define ERROR_MSG_INFILE "Error - Input file is invalid or cannot be parsed"
 
 # define WIN_TITLE "FDF - Computer Graphics Project"
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
-# define IMG_WIDTH 1280
-# define IMG_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
+# define IMG_WIDTH 1920
+# define IMG_HEIGHT 1080
 # define IMG_INITIAL_POSITION_X 0
 # define IMG_INITIAL_POSITION_Y 0
 
@@ -56,7 +56,7 @@
 # define PROJECTION_PERSP_SIZE_MIN 10.0f
 # define PROJECTION_PERSP_SIZE_MAX 2000.0f
 
-# define PROJECTION_ISO_SIZE 10.0f
+# define PROJECTION_ISO_SIZE 4.0f
 # define PROJECTION_ISO_SIZE_DELTA 1.0f
 # define PROJECTION_ISO_SIZE_MIN 0.2f
 # define PROJECTION_ISO_SIZE_MAX 50.0f

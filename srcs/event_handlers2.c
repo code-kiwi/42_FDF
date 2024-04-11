@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:54:11 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/11 10:23:44 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:55:44 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,13 @@ void	switch_projection_handler(t_fdf_data *data)
 {
 	if (data == NULL)
 		return ;
-	data->projection_type = PROJ_PERSP;
-	data->projection_size = PROJECTION_PERSP_SIZE;
-	data->projection_size_delta = PROJECTION_PERSP_SIZE_DELTA;
-	data->projection_size_min = PROJECTION_PERSP_SIZE_MIN;
-	data->projection_size_max = PROJECTION_PERSP_SIZE_MAX;
+	if (data->projection_type == PROJ_ISO)
+	{
+		data->projection_type = PROJ_PERSP;
+		data->projection_size = PROJECTION_PERSP_SIZE;
+		data->projection_size_delta = PROJECTION_PERSP_SIZE_DELTA;
+		data->projection_size_min = PROJECTION_PERSP_SIZE_MIN;
+		data->projection_size_max = PROJECTION_PERSP_SIZE_MAX;
+		rotate_map(data, PI / 6, 'z');
+	}
 }
