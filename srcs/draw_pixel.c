@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 17:12:04 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 16:22:43 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:08:20 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 /*
  *	Draws a pixel onto the given image
+ *	If the pixel is outside of the image, nothing happens
+ *	The (0, 0) coordinate point is at the center of the image
  */
 void	draw_pixel(t_image *img, t_point2d *pt)
 {

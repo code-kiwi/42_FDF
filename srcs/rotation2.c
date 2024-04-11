@@ -6,12 +6,16 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:10:19 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/10 01:47:45 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:49:20 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Applies a rotation on all the points of the map, around the given axis and
+ *	with the given rotation angle
+ */
 void	rotate_map(t_fdf_data *data, float angle, char axe)
 {
 	float	matrix[4][4];
@@ -27,6 +31,9 @@ void	rotate_map(t_fdf_data *data, float angle, char axe)
 	rotation_apply_matrix(data, matrix);
 }
 
+/*
+ *	Initializes a matrix for a rotation around x axis
+ */
 void	rot_x_eval_matrix(float rot_matrix[4][4], float angle)
 {
 	matrix_init_identity(rot_matrix);
@@ -36,6 +43,9 @@ void	rot_x_eval_matrix(float rot_matrix[4][4], float angle)
 	rot_matrix[2][2] = cos(angle);
 }
 
+/*
+ *	Initializes a matrix for a rotation around y axis
+ */
 void	rot_y_eval_matrix(float rot_matrix[4][4], float angle)
 {
 	matrix_init_identity(rot_matrix);
@@ -45,6 +55,9 @@ void	rot_y_eval_matrix(float rot_matrix[4][4], float angle)
 	rot_matrix[2][2] = cos(angle);
 }
 
+/*
+ *	Initializes a matrix for a rotation around z axis
+ */
 void	rot_z_eval_matrix(float rot_matrix[4][4], float angle)
 {
 	matrix_init_identity(rot_matrix);

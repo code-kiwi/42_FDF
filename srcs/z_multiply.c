@@ -6,12 +6,15 @@
 /*   By: mhotting <mhotting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/09 18:44:33 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 18:59:03 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:14:31 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Multiplies all the data->map points z coordinates by the given factor
+ */
 void	z_multiply(t_fdf_data *data, float factor)
 {
 	size_t		i;

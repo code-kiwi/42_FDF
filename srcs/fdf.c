@@ -6,13 +6,24 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:48:10 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 16:31:32 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:20:41 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include "fdf_parsing.h"
 
+/*
+ *	Program's entry point
+ *	Steps:
+ *		- Argument check
+ *		- File parsing
+ *		- Calibration
+ *		- Projection initialization
+ *		- Window opening
+ *		- Event handlers addition
+ *		- Main loop launch
+ */
 int	main(int argc, char **argv)
 {
 	t_fdf_data	data;

@@ -6,12 +6,18 @@
 /*   By: mhotting <mhotting@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:27:52 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 19:01:01 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:30:43 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_parsing.h"
 
+/*
+ *	Parses the map into the file pointed by fd, and stored the information
+ *	into info map
+ *	When an error is encountered, the info error flag is set to true and
+ *	the parsing stops
+ */
 static void	parser_get_map(t_parser_info *info, int fd)
 {
 	size_t	line_index;
@@ -38,6 +44,9 @@ static void	parser_get_map(t_parser_info *info, int fd)
 	get_next_line(-1);
 }
 
+/*
+ *	Returns true if the file's name is valid, else returns false
+ */
 bool	parser_is_valid_filename(char *filename)
 {
 	char	*str;
@@ -50,6 +59,19 @@ bool	parser_is_valid_filename(char *filename)
 	return (true);
 }
 
+/*
+ *	Parses the given file in order to get all the information required by the
+ *	project
+ *	Returns true on SUCCESS, false on ERROR
+ *	Error cases:
+ *		- invalid parameters
+ *		- invalid file (no rights, not existing)
+ *		- invalid file content (map is not well formatted, invalid size, etc.)
+ *		- internal error (memory allocation, etc.)
+ *	On success, the project data are stored into the data given pointer
+ *	NB: opens the file two times, one for getting map dimension and the second
+ *	time for parsing the map
+ */
 bool	parse_input_file(t_fdf_data *data, char *filename)
 {
 	int				fd;

@@ -6,12 +6,15 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 16:55:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 16:22:10 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:07:25 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Bresenham low drawing function initializer
+ */
 static void	draw_line_low_init(t_point2d *a, t_point2d *b, int dxy[2], int *yi)
 {
 	if (a == NULL || b == NULL || dxy == NULL || yi == NULL)
@@ -26,6 +29,9 @@ static void	draw_line_low_init(t_point2d *a, t_point2d *b, int dxy[2], int *yi)
 	}
 }
 
+/*
+ *	Subfuction for Bresenham algorithm when slope is low
+ */
 static void	draw_line_low(t_image *img, t_point2d *a, t_point2d *b)
 {
 	t_point2d	pt;
@@ -54,6 +60,9 @@ static void	draw_line_low(t_image *img, t_point2d *a, t_point2d *b)
 	}
 }
 
+/*
+ *	Bresenham low drawing function initializer
+ */
 static void	draw_line_high_init(t_point2d *a, t_point2d *b, int dxy[2], int *xi)
 {
 	if (a == NULL || b == NULL || dxy == NULL || xi == NULL)
@@ -68,6 +77,9 @@ static void	draw_line_high_init(t_point2d *a, t_point2d *b, int dxy[2], int *xi)
 	}
 }
 
+/*
+ *	Subfuction for Bresenham algorithm when slope is high
+ */
 static void	draw_line_high(t_image *img, t_point2d *a, t_point2d *b)
 {
 	t_point2d	pt;

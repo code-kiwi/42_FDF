@@ -6,12 +6,15 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 10:14:33 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 16:18:07 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:23:36 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Initialize the given matrix with the identity coefficients
+ */
 void	matrix_init_identity(float m[4][4])
 {
 	size_t	i;
@@ -33,6 +36,9 @@ void	matrix_init_identity(float m[4][4])
 	}
 }
 
+/*
+ *	Multiplies a matrix (4x4) by a point (4x1) in homogeneous coordinates
+ */
 t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p)
 {
 	t_vector3	result;
@@ -44,6 +50,9 @@ t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p)
 	return (result);
 }
 
+/*
+ *	Transposes the given matrix
+ */
 void	matrix_transpose(float m[4][4])
 {
 	float	temp;
@@ -65,6 +74,9 @@ void	matrix_transpose(float m[4][4])
 	}
 }
 
+/*
+ *	Copies the src matrix coefficients into the src matrix
+ */
 void	matrix_copy(float dest[4][4], float src[4][4])
 {
 	size_t	i;
@@ -83,6 +95,11 @@ void	matrix_copy(float dest[4][4], float src[4][4])
 	}
 }
 
+/*
+ *	Multiplies the m given matrix by the n given matrix
+ *	Products's result is then stored into m
+ *	Both matrix are 4x4
+ */
 void	matrix_product(float m[4][4], float n[4][4])
 {
 	float	temp[4][4];

@@ -6,12 +6,22 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:19:39 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/05 01:33:29 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:03:11 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Returns a RGB color value which is a gradient of color between
+ *	col_a and col_b
+ *	The gradient is calculated on each RGB component
+ *	The gradient is calculatede thanks to num / den
+ *	Integer numbers are used in order to avoid floating point numbers
+ *	calculations
+ *	NB: due to integer lack of precision, gieven den could be zero, that's why
+ *	in this case, den is forced to be one
+ */
 int	get_color_value(t_argb_color *col_a, t_argb_color *col_b, int num, int den)
 {
 	t_argb_color	res;

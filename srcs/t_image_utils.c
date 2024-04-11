@@ -6,12 +6,15 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 13:17:53 by mhotting          #+#    #+#             */
-/*   Updated: 2024/03/21 15:53:42 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:12:15 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Clears the given image by setting all its pixels to 0
+ */
 void	img_clear(t_image *img)
 {
 	int			x;
@@ -36,6 +39,10 @@ void	img_clear(t_image *img)
 	}
 }
 
+/*
+ *	Allocates a new t_image structure and sets its parameters
+ *	In case of ERROR, returns NULL
+ */
 t_image	*img_init(void *mlx_ptr)
 {
 	t_image	*img;
@@ -62,6 +69,10 @@ t_image	*img_init(void *mlx_ptr)
 	return (img);
 }
 
+/*
+ *	Frees the memory allocated to the given t_image element
+ *	Destroys its mlx pointer and frees the pointer's memory
+ */
 void	img_destroy(void *mlx_ptr, t_image *img)
 {
 	if (mlx_ptr == NULL || img == NULL || img->ptr == NULL)

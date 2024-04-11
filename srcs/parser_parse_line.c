@@ -6,12 +6,15 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 11:45:35 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 17:01:04 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:40:37 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_parsing.h"
 
+/*
+ *	Counts the elements on a given line
+ */
 static size_t	parser_count_line_elts(char *line)
 {
 	size_t	count;
@@ -32,6 +35,13 @@ static size_t	parser_count_line_elts(char *line)
 	return (count);
 }
 
+/*
+ *	Parses all the lines from the given file descriptor in order to get
+ *	map dimensions: info->nb_lines and info->nb_line_elts
+ *	When an error is encountered, the error flag of the info given structure
+ *	is set to true
+ *	NB: A map has to be a rectangle and contain at list one line of one element
+ */
 void	parser_get_counts(t_parser_info *info, int fd)
 {
 	char	*line;
@@ -57,6 +67,13 @@ void	parser_get_counts(t_parser_info *info, int fd)
 	get_next_line(-1);
 }
 
+/*
+ *	Converts the line characters at the given position into an integer
+ *	The line pointer is moved to the end of the parsed integer
+ *	When an error is encountered, the error flag of the info given structure
+ *	is set to true
+ *	Returns the parsed integer
+ */
 static int	parse_line_z(t_parser_info *info, char **line)
 {
 	int		z;
@@ -76,6 +93,10 @@ static int	parse_line_z(t_parser_info *info, char **line)
 	return (z);
 }
 
+/*
+ *	Converts the given string to a RGB color value
+ *	A valid string has this structure: "^0x[0-9A-F]{6}"
+ */
 static int	parse_color(char *str)
 {
 	int		color;
@@ -91,6 +112,12 @@ static int	parse_color(char *str)
 	return (color);
 }
 
+/*
+ *	Parses a the given line in order to store its information into the map of
+ *	the given t_parser_info pointer
+ *	When an error is encountered, the info error flag is set to true and the
+ *	parsing stops
+ */
 void	parse_line(t_parser_info *info, char *line, size_t line_index)
 {
 	int		z_read;

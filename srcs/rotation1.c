@@ -6,12 +6,16 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:10:19 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/10 01:46:05 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:47:44 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Given a data->map and a rotation matrix, it left-multiplies all the points
+ *	of the map by the given matrix
+ */
 void	rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4])
 {
 	t_vector3	temp;
@@ -38,6 +42,11 @@ void	rotation_apply_matrix(t_fdf_data *data, float rot_matrix[4][4])
 	}
 }
 
+/*
+ *	Applies a rotation around the x axis to data->map points
+ *	Due to its nature, the isometric projection requires a roation around
+ *	multiple axis in order to be clean
+ */
 void	rotation_apply_x(t_fdf_data *data, float rot_matrix[4][4], float angle)
 {
 	rot_x_eval_matrix(rot_matrix, angle);
@@ -49,6 +58,11 @@ void	rotation_apply_x(t_fdf_data *data, float rot_matrix[4][4], float angle)
 	}
 }
 
+/*
+ *	Applies a rotation around the y axis to data->map points
+ *	Due to its nature, the isometric projection requires a roation around
+ *	multiple axis in order to be clean
+ */
 void	rotation_apply_y(t_fdf_data *data, float rot_matrix[4][4], float angle)
 {
 	rot_y_eval_matrix(rot_matrix, angle);
@@ -60,12 +74,20 @@ void	rotation_apply_y(t_fdf_data *data, float rot_matrix[4][4], float angle)
 	}
 }
 
+/*
+ *	Applies a rotation around the z axis to data->map points
+ */
 void	rotation_apply_z(t_fdf_data *data, float rot_matrix[4][4], float angle)
 {
 	rot_z_eval_matrix(rot_matrix, angle);
 	rotation_apply_matrix(data, rot_matrix);
 }
 
+/*
+ *	Applies a rotation on data->map points of the space
+ *	Depending on the activated rotation flag (x, y or z) the rotation is applied
+ *	around the corresponding axis
+ */
 void	rotation_apply(t_fdf_data *data)
 {
 	float	rot_matrix[4][4];
@@ -78,4 +100,4 @@ void	rotation_apply(t_fdf_data *data)
 		rotation_apply_y(data, rot_matrix, ROT_ANGLE);
 	if (data->rot_z)
 		rotation_apply_z(data, rot_matrix, ROT_ANGLE);
-}		
+}

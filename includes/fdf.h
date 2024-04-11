@@ -6,7 +6,7 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 09:47:42 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/10 02:02:47 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:42:52 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@
 # include "mlx.h"
 # include <fcntl.h>
 # include <math.h>
-
-
-# include <stdio.h>
 
 # define ERROR_MSG_USAGE "Usage: fdf infile"
 # define ERROR_MSG_INIT "Error - Impossible to init mlx data"
@@ -54,10 +51,10 @@
 # define COLOR_DEFAULT 0xFFFFFF
 # define UPPER_HEX_BASE "0123456789ABCDEF"
 
-# define PROJECTION_ORTH_SIZE 400.0f
-# define PROJECTION_ORTH_SIZE_DELTA 10.0f
-# define PROJECTION_ORTH_SIZE_MIN 10.0f
-# define PROJECTION_ORTH_SIZE_MAX 2000.0f
+# define PROJECTION_PERSP_SIZE 400.0f
+# define PROJECTION_PERSP_SIZE_DELTA 10.0f
+# define PROJECTION_PERSP_SIZE_MIN 10.0f
+# define PROJECTION_PERSP_SIZE_MAX 2000.0f
 
 # define PROJECTION_ISO_SIZE 10.0f
 # define PROJECTION_ISO_SIZE_DELTA 1.0f
@@ -81,7 +78,6 @@
 # define CAMERA_INITIAL_Z_DIRECTION_X 0.0f
 # define CAMERA_INITIAL_Z_DIRECTION_Y 0.0f
 # define CAMERA_INITIAL_Z_DIRECTION_Z -1.0f
-# define CAMERA_INITIAL_FOV 0.7854f
 # define CAMERA_VARIATION 1.0f
 
 # define PI 3.14159f
@@ -101,7 +97,7 @@ enum e_mlx_event
 typedef enum e_projection_type
 {
 	PROJ_ISO,
-	PROJ_ORTH
+	PROJ_PERSP
 }	t_projection_type;
 
 typedef union u_argb_color
@@ -151,7 +147,6 @@ typedef struct s_camera
 	t_vector3	x_direction;
 	t_vector3	y_direction;
 	t_vector3	z_direction;
-	float		fov;
 	float		matrix[4][4];
 }	t_camera;
 
@@ -204,7 +199,7 @@ void		draw_line(t_image *img, t_point2d *a, t_point2d *b);
 // Projection functions
 bool		projection_init(t_fdf_data *data);
 void		projection_iso_calculate(t_fdf_data *data);
-void		projection_orth_calculate(t_fdf_data *data);
+void		projection_persp_calculate(t_fdf_data *data);
 
 // Rotation functions
 void		rotation_apply(t_fdf_data *data);
@@ -219,7 +214,6 @@ void		rot_z_eval_matrix(float rot_matrix[4][4], float angle);
 
 // Height modifying function
 void		z_multiply(t_fdf_data *data, float factor);
-void		z_add(t_fdf_data *data, float nb);
 
 // Matrix functions
 t_vector3	matrix_applied_to_point(float m[4][4], t_vector3 p);

@@ -6,12 +6,15 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 13:59:43 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 21:45:06 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 10:58:42 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Draws the lines which link the data->projection points onto the given image
+ */
 static void	render_draw_lines(t_fdf_data *data, t_image *img)
 {
 	size_t		r;
@@ -37,6 +40,16 @@ static void	render_draw_lines(t_fdf_data *data, t_image *img)
 	}
 }
 
+/*
+ *	Rendering process
+ *	Steps:
+ *		- the inactive image is selected in order to be the one we draw on
+ *		- the image is cleared
+ *		- The projected points are drawn on the inactive image, and the lines
+ *		which links them are drawn
+ *		- The images are switched and the active image pointer of given data is
+ *		updated
+ */
 static void	render_process(t_fdf_data *data)
 {
 	t_image	*img;
@@ -52,13 +65,20 @@ static void	render_process(t_fdf_data *data)
 	if (data->projection_type == PROJ_ISO)
 		projection_iso_calculate(data);
 	else
-		projection_orth_calculate(data);
+		projection_persp_calculate(data);
 	render_draw_lines(data, img);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, \
 			img->ptr, IMG_INITIAL_POSITION_X, IMG_INITIAL_POSITION_Y);
 	data->img_active = img;
 }
 
+/*
+ *	Handles rendering process
+ *	This function is associated to the mlx loop hook
+ *	The received data is casted into t_fdf_data pointer
+ *	In order to stabilize the animation frame rate, the loop process is launched
+ *	only when the loop counter reaches EVENT_LOOP_FRAME_TARGET
+ */
 int	render(void *data_received)
 {
 	t_fdf_data	*data;

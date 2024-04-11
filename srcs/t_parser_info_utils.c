@@ -6,12 +6,18 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 10:52:30 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 18:50:10 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:20:20 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf_parsing.h"
 
+/*
+ *	Adds the given coordinates value to the info->map element at positions
+ *	l (line), c (col)
+ *	The coordinate is: c for x, -1 * l for y and z for z
+ *	This projects uses homogeneous coordinates then the w component is set to 1
+ */
 void	parser_info_add_coords(t_parser_info *info, size_t l, size_t c, int z)
 {
 	t_point3d	**map;
@@ -36,6 +42,10 @@ void	parser_info_add_coords(t_parser_info *info, size_t l, size_t c, int z)
 	map[l][c].coords.w = 1.0f;
 }
 
+/*
+ *	Adds the given color value to the info->map element at position l (line), 
+ *	c (col)
+ */
 void	parser_info_add_color(t_parser_info *info, size_t l, size_t c, int col)
 {
 	t_point3d	**map;
@@ -51,6 +61,9 @@ void	parser_info_add_color(t_parser_info *info, size_t l, size_t c, int col)
 	map[l][c].color.value = col;
 }
 
+/*
+ *	Sets the t_parser_info given pointer elements to zero
+ */
 void	parser_info_init(t_parser_info *info)
 {
 	if (info == NULL)
@@ -58,6 +71,9 @@ void	parser_info_init(t_parser_info *info)
 	ft_memset(info, 0, sizeof(t_parser_info));
 }
 
+/*
+ *	Frees the given two dimension array of t_point3d elements
+ */
 void	parser_info_map_free(t_point3d **map, size_t nb_lines)
 {
 	size_t	i;
@@ -73,6 +89,12 @@ void	parser_info_map_free(t_point3d **map, size_t nb_lines)
 	free(map);
 }
 
+/*
+ *	Allocates a two dimension array of t_point3d elements and set info->map to
+ *	the pointer to the array
+ *	In case of ERROR, the info->map pointer is not affected an info->error flag
+ *	is set to true
+ */
 void	parser_info_init_map(t_parser_info *info)
 {
 	size_t		i;

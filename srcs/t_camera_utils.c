@@ -6,12 +6,16 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 16:14:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 18:36:35 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:04:33 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Calculates the camera matrix which will enable to convert points coordinates
+ *	from world space to camera space
+ */
 void	camera_matrix_calc(t_camera *camera)
 {
 	float	matrix_t[4][4];
@@ -40,6 +44,11 @@ void	camera_matrix_calc(t_camera *camera)
 	matrix_product(camera->matrix, matrix_t);
 }
 
+/*
+ *	Initializes the camera parameters
+ *	A camera has a position and an orientation defined thanks to three vectors
+ *	Then calculates the camera matrix
+ */
 void	camera_init(t_camera *camera)
 {
 	if (camera == NULL)
@@ -56,6 +65,5 @@ void	camera_init(t_camera *camera)
 	camera->z_direction.x = CAMERA_INITIAL_Z_DIRECTION_X;
 	camera->z_direction.y = CAMERA_INITIAL_Z_DIRECTION_Y;
 	camera->z_direction.z = CAMERA_INITIAL_Z_DIRECTION_Z;
-	camera->fov = CAMERA_INITIAL_FOV;
 	camera_matrix_calc(camera);
 }

@@ -6,12 +6,16 @@
 /*   By: mhotting <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 09:24:14 by mhotting          #+#    #+#             */
-/*   Updated: 2024/04/09 21:41:38 by mhotting         ###   ########.fr       */
+/*   Updated: 2024/04/11 11:14:35 by mhotting         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
+ *	Creates the data images thanks to the mlx functions
+ *	Returns true on SUCCES, false on ERROR
+ */
 static bool	init_project_images(t_fdf_data *data)
 {
 	if (data == NULL || data->mlx_ptr == NULL)
@@ -29,6 +33,14 @@ static bool	init_project_images(t_fdf_data *data)
 	return (true);
 }
 
+/*
+ *	Creates the projects elements in order to open a window
+ *	Steps:
+ *		- creates main mlx pointer
+ *		- creates the window
+ *		- creates both images
+ *	Returns true on SUCCES, false on ERROR
+ */
 bool	open_project_window(t_fdf_data *data)
 {
 	data->mlx_ptr = mlx_init();
@@ -50,6 +62,10 @@ bool	open_project_window(t_fdf_data *data)
 	return (true);
 }
 
+/*
+ *	Initializes the project main structure members
+ *	Sets the default projection parameters: ISO projection is the default one
+ */
 void	init_data_project(t_fdf_data *data)
 {
 	if (data == NULL)
@@ -63,6 +79,10 @@ void	init_data_project(t_fdf_data *data)
 	data->projection_type = PROJ_ISO;
 }
 
+/*
+ *	Frees the memory allocated to the map and proj structures
+ *	Frees each line of both structures and then the main ponters
+ */
 static void	clean_map_proj(t_point3d **map, t_point2d **proj, size_t nb_lines)
 {
 	size_t	i;
@@ -83,6 +103,10 @@ static void	clean_map_proj(t_point3d **map, t_point2d **proj, size_t nb_lines)
 	}
 }
 
+/*
+ *	Frees all the memory allocated to the given data
+ *	Destroys all the mlx pointers created
+ */
 void	clean_remove(t_fdf_data *data)
 {
 	t_point3d	**map;
